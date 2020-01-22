@@ -38,27 +38,7 @@ app.post('/webhook', (req, res) => {
   // Parse the request body from the POST
   let body = req.body;
 
-  let persistentMenu = {         
-      "locale": "default",
-      "composer_input_disabled": false,
-      "call_to_actions": [
-          {
-              "type": "postback",
-              "title": "Talk to an agent",
-              "payload": "CARE_HELP"
-          },
-          {
-              "type": "postback",
-              "title": "Outfit suggestions",
-              "payload": "CURATION"
-          },
-          {
-              "type": "web_url",
-              "title": "Shop now",
-              "url": "https://www.originalcoastclothing.com/",
-              "webview_height_ratio": "full"
-          }
-      ]};
+  
 
   // Check the webhook event is from a Page subscription
   if (body.object === 'page') {
@@ -74,7 +54,10 @@ app.post('/webhook', (req, res) => {
       let sender_psid = webhook_event.sender.id;
       console.log('Sender ID: ' + sender_psid);
 
-      setPersistentMenu(sender_psid, persistentMenu);
+
+      
+
+      
 
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
@@ -107,8 +90,7 @@ app.get('/webhook', (req, res) => {
   let token = req.query['hub.verify_token'];
   let challenge = req.query['hub.challenge'];
 
-
-  
+  setupGetStartedButton(res);  
     
   // Check if a token and mode were sent
   if (mode && token) {
@@ -220,24 +202,31 @@ function callSendAPI(sender_psid, response) {
 }
 
 
-function setPersistentMenu(sender_psid, persistent_menu) {
-  // Construct the message body
-  let request_body = {
-    "psid" : sender_psid
-    "persistent_menu": persistent_menu
-  }
+function setupGetStartedButton(res){
+        var messageData = {
+                "get_started":[
+                {
+                    "payload":"USER_DEFINED_PAYLOAD"
+                    }
+                ]
+        };
 
-  // Send the HTTP request to the Messenger Platform
-  request({
-    "uri": "https://graph.facebook.com/v2.6/me/messages",
-    "qs": { "access_token": PAGE_ACCESS_TOKEN },
-    "method": "POST",
-    "json": request_body
-  }, (err, res, body) => {
-    if (!err) {
-      console.log('message sent!')
-    } else {
-      console.error("Unable to send message:" + err);
-    }
-  }); 
-}
+        // Start the request
+        request({
+            url: 'https://graph.facebook.com/v2.6/me/messenger_profile',
+            "qs": { "access_token": PAGE_ACCESS_TOKEN },
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            form: messageData
+        },
+        function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                // Print out the response body
+                res.send(body);
+
+            } else { 
+                // TODO: Handle errors
+                res.send(body);
+            }
+        });
+    } 
