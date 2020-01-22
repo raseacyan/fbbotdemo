@@ -84,7 +84,7 @@ app.post('/webhook', (req, res) => {
 
 app.get('/setup',function(req,res){
     setupGetStartedButton(res);
-    //setupPersistentMenu(res);
+    setupPersistentMenu(res);
 });
 
 // Accepts GET requests at the /webhook endpoint
@@ -237,7 +237,7 @@ function setupGetStartedButton(res){
             }
         });
     } 
-/*
+
 function setupPersistentMenu(res){
         var messageData = {
                 "psid": sender_psid,
@@ -284,4 +284,3 @@ function setupPersistentMenu(res){
             }
         });
     } 
-*/
