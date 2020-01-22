@@ -214,7 +214,7 @@ function callSendAPI(sender_psid, response) {
 function setupGetStartedButton(res){
         var messageData = {
                 "get_started": {"payload": "USER_DEFINED_PAYLOAD"}      
-                          
+
         };
         // Start the request
         request({
@@ -242,11 +242,7 @@ function setupPersistentMenu(res){
             "locale":"default",
             "composer_input_disabled":true,
             "call_to_actions":[
-                {
-                  "title":"One",
-                  "type":"postback",
-                  "payload":"ONE_PAYLOAD"
-                },
+               
                 {
                 "title":"Two",
                 "type":"nested",
@@ -299,8 +295,7 @@ function setupPersistentMenu(res){
 function removePersistentMenu(res){
         var messageData = {
                 "fields": [
-                   "persistent_menu",
-                  // "get_started"
+                   "persistent_menu"                  
                 ]               
         };
         // Start the request
