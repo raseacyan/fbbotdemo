@@ -299,7 +299,7 @@ function removePersistentMenu(res){
         var messageData = {
                 "fields": [
                    "persistent_menu",
-                   "get_started"
+                  // "get_started"
                 ]               
         };
         // Start the request
