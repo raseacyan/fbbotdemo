@@ -52,21 +52,23 @@ app.post('/webhook', (req, res) => {
 
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
-      console.log('Sender ID: ' + sender_psid);
-
-
-      
-
-      
+      console.log('Sender ID: ' + sender_psid);      
 
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
         handleMessage(sender_psid, webhook_event.message);        
-      } else if (webhook_event.postback) {
-        
+      } else if (webhook_event.postback) {        
         handlePostback(sender_psid, webhook_event.postback);
       }
+
+      /*
+      if(webhook_event.postback.postback && event.postback.payload === USER_DEFINED_PAYLOAD )
+        {
+                //present user with some greeting or call to action
+                var msg = "Hi ,I'm a Bot ,and I was created to help you easily .... "
+                //sendMessage(event.sender.id,msg);      
+        }   */
       
     });
     // Return a '200 OK' response to all events
@@ -81,8 +83,8 @@ app.post('/webhook', (req, res) => {
 
 
 app.get('/setup',function(req,res){
-
     setupGetStartedButton(res);
+    setupPersistentMenu(res);
 });
 
 // Accepts GET requests at the /webhook endpoint
@@ -210,9 +212,55 @@ function callSendAPI(sender_psid, response) {
 
 function setupGetStartedButton(res){
         var messageData = {
+                "psid": sender_psid,
+                "persistent_menu": [
+                  {
+                      "locale": "default",
+                      "composer_input_disabled": false,
+                      "call_to_actions": [
+                          {
+                              "type": "postback",
+                              "title": "Talk to an agent",
+                              "payload": "One"
+                          },
+                          {
+                              "type": "postback",
+                              "title": "Outfit suggestions",
+                              "payload": "Two"
+                          },
+                          {
+                              "type": "web_url",
+                              "title": "Google",
+                              "url": "https://www.google.com/",
+                              "webview_height_ratio": "full"
+                          }
+                      ]
+                  }
+              ]               
+        };
+        // Start the request
+        request({
+            url: 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='+ PAGE_ACCESS_TOKEN,
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            form: messageData
+        },
+        function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+                // Print out the response body
+                res.send(body);
+
+            } else { 
+                // TODO: Handle errors
+                res.send(body);
+            }
+        });
+    } 
+
+function setupPersistentMenu(res){
+        var messageData = {
                 "get_started": {"payload": "USER_DEFINED_PAYLOAD"}                
         };
-
         // Start the request
         request({
             url: 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='+ PAGE_ACCESS_TOKEN,
