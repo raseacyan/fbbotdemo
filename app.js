@@ -52,23 +52,18 @@ app.post('/webhook', (req, res) => {
 
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
-      console.log('Sender ID: ' + sender_psid);      
+      console.log('Sender ID: ' + sender_psid);   
+
+      
 
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
         handleMessage(sender_psid, webhook_event.message);        
-      } else if (webhook_event.postback) {        
+      } else if (webhook_event.postback) {
+        
         handlePostback(sender_psid, webhook_event.postback);
       }
-
-      /*
-      if(webhook_event.postback.postback && event.postback.payload === USER_DEFINED_PAYLOAD )
-        {
-                //present user with some greeting or call to action
-                var msg = "Hi ,I'm a Bot ,and I was created to help you easily .... "
-                //sendMessage(event.sender.id,msg);      
-        }   */
       
     });
     // Return a '200 OK' response to all events
