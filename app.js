@@ -131,12 +131,6 @@ function handleMessage(sender_psid, received_message) {
     response = {
       "text": `Min Ga Lar Par Sint!`
     }
-  }else if (received_message.text == "ni hao") {    
-    // Create the payload for a basic text message, which
-    // will be added to the body of our request to the Send API
-    response = {
-      "text": `Hao Xie Xie Ni Hao Ma!`
-    }
   }else if (received_message.text) {    
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
