@@ -79,6 +79,7 @@ app.post('/webhook', (req, res) => {
 
 app.get('/setup',function(req,res){
     setupGetStartedButton(res);
+    setupPersistentMenu(res);
 });
 
 // Accepts GET requests at the /webhook endpoint
@@ -239,12 +240,12 @@ function setupPersistentMenu(res){
                 "type":"nested",
                 "call_to_actions":[
                     {
-                    "title":"Help",
+                    "title":"One",
                     "type":"postback",
                     "payload":"HELP_PAYLOAD"
                     },
                     {
-                    "title":"Contact Me",
+                    "title":"Two",
                     "type":"postback",
                     "payload":"CONTACT_INFO_PAYLOAD"
                     }
@@ -252,8 +253,8 @@ function setupPersistentMenu(res){
                 },
                 {
                 "type":"web_url",
-                "title":"Visit website ",
-                "url":"http://www.techiediaries.com",
+                "title":"Google",
+                "url":"http://www.google.com",
                 "webview_height_ratio":"full"
                 }
             ]
