@@ -83,8 +83,7 @@ app.get('/setup',function(req,res){
 });
 
 
-app.get('/clear',function(req,res){
-    
+app.get('/clear',function(req,res){    
     removePersistentMenu(res);
 });
 
