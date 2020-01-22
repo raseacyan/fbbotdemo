@@ -76,7 +76,7 @@ app.post('/webhook', (req, res) => {
 
 });
 
-
+/*
 app.get('/setup',function(req,res){
     setupGetStartedButton(res);
     
@@ -84,7 +84,7 @@ app.get('/setup',function(req,res){
 
 app.get('/clear',function(req,res){    
     removePersistentMenu(res);
-});
+});*/
 
 
 // Accepts GET requests at the /webhook endpoint
@@ -209,7 +209,7 @@ function callSendAPI(sender_psid, response) {
   }); 
 }
 
-
+/*
 function setupGetStartedButton(res){
         var messageData = {
                 "get_started":{"payload":"USER_DEFINED_PAYLOAD"}
@@ -232,6 +232,8 @@ function setupGetStartedButton(res){
             }
         });
     } 
+
+*/
 /*
 function setupPersistentMenu(res){
         var messageData = {
