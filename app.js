@@ -79,6 +79,12 @@ app.post('/webhook', (req, res) => {
 
 });
 
+
+app.get('/setup',function(req,res){
+
+    setupGetStartedButton(res);
+});
+
 // Accepts GET requests at the /webhook endpoint
 app.get('/webhook', (req, res) => {
   
@@ -90,7 +96,7 @@ app.get('/webhook', (req, res) => {
   let token = req.query['hub.verify_token'];
   let challenge = req.query['hub.challenge'];
 
-  setupGetStartedButton(res);  
+  
     
   // Check if a token and mode were sent
   if (mode && token) {
