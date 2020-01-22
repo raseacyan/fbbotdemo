@@ -239,11 +239,11 @@ function setupGetStartedButton(res){
 
 
 function setupPersistentMenu(res){
-        var messageData = {           
-            "persistent_menu":[
+        var messageData = { 
+              "persistent_menu":[
     {
     "locale":"default",
-    "composer_input_disabled":false,
+    "composer_input_disabled":true,
     "call_to_actions":[
         {
         "title":"Info",
@@ -267,7 +267,13 @@ function setupPersistentMenu(res){
         "url":"http://www.techiediaries.com",
         "webview_height_ratio":"full"
         }
-    ]            
+    ]
+    },
+    {
+    "locale":"zh_CN",
+    "composer_input_disabled":false
+    }
+]          
         };
         // Start the request
         request({
