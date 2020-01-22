@@ -242,18 +242,23 @@ function setupPersistentMenu(res){
             "composer_input_disabled":true,
             "call_to_actions":[
                 {
-                "title":"Info",
+                  "title":"One",
+                  "type":"postback",
+                  "payload":"ONE_PAYLOAD"
+                },
+                {
+                "title":"Two",
                 "type":"nested",
                 "call_to_actions":[
                     {
-                    "title":"One",
+                    "title":"Sub 2.1",
                     "type":"postback",
-                    "payload":"HELP_PAYLOAD"
+                    "payload":"TWOONE_PAYLOAD"
                     },
                     {
-                    "title":"Two",
+                    "title":"Sub 2.2",
                     "type":"postback",
-                    "payload":"CONTACT_INFO_PAYLOAD"
+                    "payload":"TWOTWO_PAYLOAD"
                     }
                 ]
                 },
@@ -266,7 +271,7 @@ function setupPersistentMenu(res){
             ]
             },
             {
-            "locale":"zh_CN",
+            "locale":"en_US",
             "composer_input_disabled":false
             }
         ]                
