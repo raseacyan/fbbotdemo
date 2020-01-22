@@ -245,7 +245,7 @@ function setupGetStartedButton(res){
 
 function setupPersistentMenu(res){
         var messageData = {
-                "psid": sender_psid,
+                
                 "persistent_menu": [
                   {
                       "locale": "default",
