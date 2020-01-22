@@ -85,6 +85,33 @@ app.get('/webhook', (req, res) => {
     
   // Check if a token and mode were sent
   if (mode && token) {
+
+    let persistentMenu = {
+            "locale": "default",
+            "composer_input_disabled": false,
+            "call_to_actions": [
+                {
+                    "type": "postback",
+                    "title": "Talk to an agent",
+                    "payload": "CARE_HELP"
+                },
+                {
+                    "type": "postback",
+                    "title": "Outfit suggestions",
+                    "payload": "CURATION"
+                },
+                {
+                    "type": "web_url",
+                    "title": "Shop now",
+                    "url": "https://www.originalcoastclothing.com/",
+                    "webview_height_ratio": "full"
+                }
+            ]
+        };
+
+        callSendAPI(sender_psid, persistentMenu);
+
+    
   
     // Check the mode and token sent are correct
     if (mode === 'subscribe' && token === VERIFY_TOKEN) {
@@ -165,6 +192,7 @@ function handlePostback(sender_psid, received_postback) {
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
 }
+
 
 function callSendAPI(sender_psid, response) {
   // Construct the message body
