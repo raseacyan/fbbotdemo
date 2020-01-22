@@ -239,7 +239,7 @@ function setupGetStartedButton(res){
 
 
 function setupPersistentMenu(res){
-        var messageData = {
+        var messageData = {           
             "persistent_menu":[
             {
             "locale":"default",
