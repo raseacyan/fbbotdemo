@@ -82,7 +82,6 @@ app.get('/setup',function(req,res){
     
 });
 
-
 app.get('/clear',function(req,res){    
     removePersistentMenu(res);
 });
@@ -214,41 +213,7 @@ function callSendAPI(sender_psid, response) {
 function setupGetStartedButton(res){
         var messageData = {
                 "get_started": {"payload": "USER_DEFINED_PAYLOAD"},
-                "persistent_menu":[
-                  {
-                  "locale":"default",
-                  "composer_input_disabled":true,
-                  "call_to_actions":[
-                     
-                      {
-                      "title":"Two",
-                      "type":"nested",
-                      "call_to_actions":[
-                          {
-                          "title":"Sub 2.1",
-                          "type":"postback",
-                          "payload":"TWOONE_PAYLOAD"
-                          },
-                          {
-                          "title":"Sub 2.2",
-                          "type":"postback",
-                          "payload":"TWOTWO_PAYLOAD"
-                          }
-                      ]
-                      },
-                      {
-                      "type":"web_url",
-                      "title":"Google",
-                      "url":"http://www.google.com",
-                      "webview_height_ratio":"full"
-                      }
-                  ]
-                  },
-                  {
-                  "locale":"en_US",
-                  "composer_input_disabled":false
-                  }
-                ]    
+                  
 
         };
         // Start the request
