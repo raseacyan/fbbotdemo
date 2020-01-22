@@ -298,7 +298,8 @@ function setupPersistentMenu(res){
 function removePersistentMenu(res){
         var messageData = {
                 "fields": [
-                   "persistent_menu"
+                   "persistent_menu",
+                   "get_started"
                 ]               
         };
         // Start the request
