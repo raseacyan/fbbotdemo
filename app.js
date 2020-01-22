@@ -87,6 +87,7 @@ app.get('/webhook', (req, res) => {
   if (mode && token) {
 
     let persistentMenu = {
+          "persistent_menu": {
             "locale": "default",
             "composer_input_disabled": false,
             "call_to_actions": [
@@ -106,7 +107,7 @@ app.get('/webhook', (req, res) => {
                     "url": "https://www.originalcoastclothing.com/",
                     "webview_height_ratio": "full"
                 }
-            ]
+            ]}
         };
 
         callSendAPI(sender_psid, persistentMenu);
