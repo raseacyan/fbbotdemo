@@ -212,11 +212,7 @@ function callSendAPI(sender_psid, response) {
 
 function setupGetStartedButton(res){
         var messageData = {
-                "get_started":[
-                {
-                    "payload":"USER_DEFINED_PAYLOAD"
-                    }
-                ]
+                "get_started":[{"payload":"USER_DEFINED_PAYLOAD"}]
         };
         // Start the request
         request({
