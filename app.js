@@ -84,7 +84,6 @@ app.post('/webhook', (req, res) => {
 
 app.get('/setup',function(req,res){
     setupGetStartedButton(res);
-   
 });
 
 
@@ -211,7 +210,7 @@ function callSendAPI(sender_psid, response) {
 }
 
 
-function setupGetStartedButton(res){
+ function setupGetStartedButton(res){
         var messageData = {
                 "get_started":[
                 {
@@ -219,7 +218,7 @@ function setupGetStartedButton(res){
                     }
                 ]
         };
-        
+
         // Start the request
         request({
             url: 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='+ PAGE_ACCESS_TOKEN,
@@ -237,4 +236,4 @@ function setupGetStartedButton(res){
                 res.send(body);
             }
         });
-    } 
+    }    
