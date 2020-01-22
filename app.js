@@ -294,6 +294,8 @@ function setupPersistentMenu(res){
         });
     } 
 */
+
+/*
 function removePersistentMenu(res){
         var messageData = {
                 "fields": [
@@ -318,3 +320,4 @@ function removePersistentMenu(res){
             }
         });
     } 
+*/
