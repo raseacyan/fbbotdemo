@@ -241,37 +241,33 @@ function setupGetStartedButton(res){
 function setupPersistentMenu(res){
         var messageData = {           
             "persistent_menu":[
+    {
+    "locale":"default",
+    "composer_input_disabled":true,
+    "call_to_actions":[
+        {
+        "title":"Info",
+        "type":"nested",
+        "call_to_actions":[
             {
-            "locale":"default",
-            "composer_input_disabled":true,
-            "call_to_actions":[
-               
-                {
-                "title":"Two",
-                "type":"nested",
-                "call_to_actions":[
-                    {
-                    "title":"Sub 2.1",
-                    "type":"postback",
-                    "payload":"TWOONE_PAYLOAD"
-                    },
-                    {
-                    "title":"Sub 2.2",
-                    "type":"postback",
-                    "payload":"TWOTWO_PAYLOAD"
-                    }
-                ]
-                },
-                {
-                "type":"web_url",
-                "title":"Google",
-                "url":"http://www.google.com",
-                "webview_height_ratio":"full"
-                }
-            ]
+            "title":"Help",
+            "type":"postback",
+            "payload":"HELP_PAYLOAD"
+            },
+            {
+            "title":"Contact Me",
+            "type":"postback",
+            "payload":"CONTACT_INFO_PAYLOAD"
             }
-            
-        ]                
+        ]
+        },
+        {
+        "type":"web_url",
+        "title":"Visit website ",
+        "url":"http://www.techiediaries.com",
+        "webview_height_ratio":"full"
+        }
+    ]            
         };
         // Start the request
         request({
