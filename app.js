@@ -83,7 +83,12 @@ app.post('/webhook', (req, res) => {
 
 
 app.get('/setup',function(req,res){
-    //setupGetStartedButton(res);
+    setupGetStartedButton(res);
+  
+});
+
+app.get('/setuppersistentmenu',function(req,res){
+  
     setupPersistentMenu(res);
 });
 
