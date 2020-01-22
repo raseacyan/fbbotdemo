@@ -81,10 +81,10 @@ app.get('/setup',function(req,res){
     setupGetStartedButton(res);
     
 });
-
+*/
 app.get('/clear',function(req,res){    
     removePersistentMenu(res);
-});*/
+});
 
 
 // Accepts GET requests at the /webhook endpoint
@@ -293,11 +293,12 @@ function setupPersistentMenu(res){
     } 
 */
 
-/*
+
 function removePersistentMenu(res){
         var messageData = {
                 "fields": [
-                   "persistent_menu"                  
+                   "persistent_menu" ,
+                   "get_started"                 
                 ]               
         };
         // Start the request
@@ -318,4 +319,3 @@ function removePersistentMenu(res){
             }
         });
     } 
-*/
