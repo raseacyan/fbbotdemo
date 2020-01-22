@@ -269,11 +269,8 @@ function setupPersistentMenu(res){
                 "webview_height_ratio":"full"
                 }
             ]
-            },
-            {
-            "locale":"en_US",
-            "composer_input_disabled":false
             }
+            
         ]                
         };
         // Start the request
