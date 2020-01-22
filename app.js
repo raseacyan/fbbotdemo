@@ -243,7 +243,7 @@ function setupGetStartedButton(res){
             }
         });
     } 
-
+/*
 function setupPersistentMenu(res){
         var messageData = {
                 
@@ -290,3 +290,4 @@ function setupPersistentMenu(res){
             }
         });
     } 
+*/
