@@ -86,7 +86,6 @@ app.get('/setup',function(req,res){
     setupGetStartedButton(res);
 });
 
-
 // Accepts GET requests at the /webhook endpoint
 app.get('/webhook', (req, res) => {
   
@@ -210,15 +209,10 @@ function callSendAPI(sender_psid, response) {
 }
 
 
- function setupGetStartedButton(res){
+function setupGetStartedButton(res){
         var messageData = {
-                "get_started":[
-                {
-                    "payload":"USER_DEFINED_PAYLOAD"
-                    }
-                ]
+                "get_started": {"payload": "USER_DEFINED_PAYLOAD"}                
         };
-
         // Start the request
         request({
             url: 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='+ PAGE_ACCESS_TOKEN,
@@ -236,4 +230,4 @@ function callSendAPI(sender_psid, response) {
                 res.send(body);
             }
         });
-    }    
+    } 
