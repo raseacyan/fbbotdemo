@@ -223,9 +223,7 @@ function callSendAPI(sender_psid, response) {
 function setPersistentMenu(sender_psid, persistent_menu) {
   // Construct the message body
   let request_body = {
-    "recipient": {
-      "id": sender_psid
-    },
+    "psid" : sender_psid
     "persistent_menu": persistent_menu
   }
 
