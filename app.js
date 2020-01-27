@@ -55,8 +55,8 @@ app.post('/webhook', (req, res) => {
       console.log('Sender ID: ' + sender_psid);  
 
 
-      //let sender_image = webhook_event.sender.profile_pic; 
-      console.log('Sender image: ' + 'test');
+      let sender_image = webhook_event.sender.profile_pic; 
+      console.log('Sender image: ' + sender_image);
 
       
 
