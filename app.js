@@ -145,8 +145,8 @@ function handleMessage(sender_psid, received_message) {
   else if (received_message.text == "who am i") {    
     
     let userProfile = getUserProfile(sender_psid);
-    let user_image = userProfile.profile_pic;
-    console.log(user_image);
+    
+    console.log(userProfile);
   }
    else if (received_message.text) {    
     // Create the payload for a basic text message, which
