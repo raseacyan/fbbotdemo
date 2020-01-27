@@ -145,9 +145,9 @@ function handleMessage(sender_psid, received_message) {
   }
   else if (received_message.text == "who am i") {    
     
-   
+    let Userprofile = getUserProfile(sender_psid);
     
-    console.log("Userprofile: ",  getUserProfile(sender_psid));
+    console.log("Userprofile: ",  Userprofile);
     
   }
    else if (received_message.text) {    
