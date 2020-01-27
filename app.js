@@ -151,7 +151,7 @@ function handleMessage(sender_psid, received_message) {
   }, (err, res, body) => {
     if (!err) { 
       let data = JSON.parse(body);  
-      photo = data.profile_pic;
+      let photo = data.profile_pic;
       response = {
       "attachment": {
         "type": "template",
