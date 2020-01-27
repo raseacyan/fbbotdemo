@@ -243,7 +243,7 @@ function getUserProfile(sender_psid) {
         "first_name" = body.first_name,
         "last_name" = body.last_name
         "profile_pic" = body.profile_pic
-      }
+      };
       console.log("Data: ", data);
       return data;
     } else {
