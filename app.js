@@ -138,6 +138,34 @@ function handleMessage(sender_psid, received_message) {
       "text": `Hao Xie Xie. Ni Hao Mah!`
     }
   }
+  else if (received_message.text == "who am i") {    
+    let sender_image = webhook_event.sender.profile_pic;
+    response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Is that you?",
+            "subtitle": "Tap a button to answer.",
+            "image_url": sender_image,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Yes!",
+                "payload": "yes",
+              },
+              {
+                "type": "postback",
+                "title": "No!",
+                "payload": "no",
+              }
+            ],
+          }]
+        }
+      }
+    }
+  }
    else if (received_message.text) {    
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
