@@ -245,11 +245,13 @@ function getUserProfile(sender_psid) {
         "profile_pic": body.profile_pic
       };
       console.log("Data: ", data);
-      return data;
+     
     } else {
       console.error("Error:" + err);
     }
   }); 
+  console.log("Data2: ", data);
+   return data;
 }
 
 
