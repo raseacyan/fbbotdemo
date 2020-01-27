@@ -52,7 +52,10 @@ app.post('/webhook', (req, res) => {
 
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
-      console.log('Sender ID: ' + sender_psid);   
+      console.log('Sender ID: ' + sender_psid);  
+
+
+      let sender_image = webhook_event.sender.profile_pic; 
 
       
 
@@ -139,7 +142,8 @@ function handleMessage(sender_psid, received_message) {
     }
   }
   else if (received_message.text == "who am i") {    
-    let sender_image = webhook_event.sender.profile_pic;
+    
+    console.log('Sender image: ' + sender_image);
     response = {
       "attachment": {
         "type": "template",
