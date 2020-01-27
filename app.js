@@ -147,7 +147,7 @@ function handleMessage(sender_psid, received_message) {
     let userProfile = getUserProfile(sender_psid);
     
     console.log("Userprofile: ", userProfile);
-    console.log("first name: " + userProfile.first_name);
+    
   }
    else if (received_message.text) {    
     // Create the payload for a basic text message, which
