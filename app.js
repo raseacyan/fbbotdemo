@@ -233,13 +233,14 @@ function callSendAPI(sender_psid, response) {
 
 
 function getUserProfile(sender_psid) { 
+  let data;
   // Send the HTTP request to the Messenger Platform
   request({
     "uri": "https://graph.facebook.com/"+sender_psid+"?fields=first_name,last_name,profile_pic&access_token="+PAGE_ACCESS_TOKEN+"\"",
     "method": "GET"
   }, (err, res, body) => {
     if (!err) {
-      let data = {
+       data = {
         "first_name": body.first_name,
         "last_name": body.last_name,
         "profile_pic": body.profile_pic
