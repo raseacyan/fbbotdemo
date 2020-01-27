@@ -146,7 +146,7 @@ function handleMessage(sender_psid, received_message) {
     
     let userProfile = getUserProfile(sender_psid);
     
-    console.log("Userprofile: "+userProfile);
+    console.log("Userprofile: ",userProfile);
   }
    else if (received_message.text) {    
     // Create the payload for a basic text message, which
@@ -237,6 +237,7 @@ function getUserProfile(sender_psid) {
     "method": "GET"
   }, (err, res, body) => {
     if (!err) {
+      console.log("Body",body);
       return body;
     } else {
       console.error("Error:" + err);
