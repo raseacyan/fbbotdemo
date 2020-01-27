@@ -221,7 +221,7 @@ function test(url, sender_psid){
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "Is this the right picture?",
+            "title": "Is this you?",
             "subtitle": "Tap a button to answer.",
             "image_url": url,
             "buttons": [
