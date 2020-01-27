@@ -214,6 +214,7 @@ function handlePostback(sender_psid, received_postback) {
 }
 
 function test(url, sender_psid){
+  let resonse;
   response = {
       "attachment": {
         "type": "template",
