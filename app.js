@@ -240,7 +240,7 @@ function getUserProfile(sender_psid) {
     "method": "GET"
   }, (err, res, body) => {
     if (!err) {
-       data = {
+       let data = {
         "first_name": body.first_name,
         "last_name": body.last_name,
         "profile_pic": body.profile_pic
@@ -248,7 +248,7 @@ function getUserProfile(sender_psid) {
       console.log("Data: ", data);
       let test = {
         "Test":"test"
-      }
+      };
       return test;
      
     } else {
