@@ -241,7 +241,7 @@ function getUserProfile(sender_psid) {
     if (!err) {
       let data = {
         "first_name" : body.first_name,
-        "last_name" : body.last_name
+        "last_name" : body.last_name,
         "profile_pic" : body.profile_pic
       };
       console.log("Data: ", data);
