@@ -63,7 +63,7 @@ app.post('/webhook', (req, res) => {
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
-        console.log("message", webhook_event.message)
+
         handleMessage(sender_psid, webhook_event.message);        
       } else if (webhook_event.postback) {
         
@@ -239,7 +239,7 @@ function getUserProfile(sender_psid) {
     "method": "GET"
   }, (err, res, body) => {
     if (!err) {
-      //console.log("Body",body);
+      console.log("Body",body);
       return body;
     } else {
       console.error("Error:" + err);
