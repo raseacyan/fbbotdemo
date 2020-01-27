@@ -56,7 +56,7 @@ app.post('/webhook', (req, res) => {
 
 
       
-      console.log('Sender : ' + webhook_event.sender.name);
+      
 
       
 
@@ -141,36 +141,11 @@ function handleMessage(sender_psid, received_message) {
     response = {
       "text": `Hao Xie Xie. Ni Hao Mah!`
     }
-  }/*
+  }
   else if (received_message.text == "who am i") {    
     
-    console.log('Sender image: ' + sender_image);
-    response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "Is that you?",
-            "subtitle": "Tap a button to answer.",
-            "image_url": sender_image,
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Yes!",
-                "payload": "yes",
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no",
-              }
-            ],
-          }]
-        }
-      }
-    }
-  }*/
+    getUserProfile(sender_psid);
+  }
    else if (received_message.text) {    
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
@@ -248,6 +223,23 @@ function callSendAPI(sender_psid, response) {
       console.log('message sent!')
     } else {
       console.error("Unable to send message:" + err);
+    }
+  }); 
+}
+
+
+function getUserProfile(sender_psid) {
+  
+
+  // Send the HTTP request to the Messenger Platform
+  request({
+    "uri": "https://graph.facebook.com/"+sender_psid+"?fields=first_name,last_name,profile_pic&access_token="+PAGE_ACCESS_TOKEN+"\"",
+    "method": "GET"
+  }, (err, res, body) => {
+    if (!err) {
+      console.log('Body:' + body)
+    } else {
+      console.error("Error:" + err);
     }
   }); 
 }
