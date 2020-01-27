@@ -246,7 +246,7 @@ function getUserProfile(sender_psid) {
         "profile_pic": body.profile_pic
       };
       console.log("Data: ", data);
-      return {"Test:test"};
+      return {"Test":test};
      
     } else {
       console.error("Error:" + err);
