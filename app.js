@@ -142,9 +142,22 @@ function handleMessage(sender_psid, received_message) {
     response = {
       "text": `Hao Xie Xie. Ni Hao Mah!`
     }
-  }
- 
-   else if (received_message.text) {    
+  }else if (received_message.text == "who am i") {    
+    //start
+        request({
+    "uri": "https://graph.facebook.com/2843859172300862?fields=first_name,last_name,profile_pic&access_token=EAAGmSf4ySjMBAAyASiRcn34RFrZCHT2GqQFHYrYpJZCCAEZAWi4tyxYo2bnUZCtGtBnrG9PFDPTRiLevXfEs1Lqms2iZCwU6iW813hs2pgu9IgShfdqaAZAarKkMc0jDyB02LjS3tlP5evHgM1uGGwMEzkQXHsVkA7W4X8Uf9cNQZDZD",
+    "method": "GET"
+  }, (err, res, body) => {
+    if (!err) { 
+     let data = JSON.parse(body);  
+     let pic = data.profile_pic; 
+     test(pic, sender_psid);     
+    } else {
+      console.error("Error:" + err);
+    }
+  }); 
+    //end
+  }else if (received_message.text) {    
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
     response = {
@@ -200,6 +213,34 @@ function handlePostback(sender_psid, received_postback) {
   callSendAPI(sender_psid, response);
 }
 
+function test(url, sender_psid){
+  response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Is this the right picture?",
+            "subtitle": "Tap a button to answer.",
+            "image_url": url,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Yes!",
+                "payload": "yes",
+              },
+              {
+                "type": "postback",
+                "title": "No!",
+                "payload": "no",
+              }
+            ],
+          }]
+        }
+      }
+    }
+  callSendAPI(sender_psid, response);
+}
 
 function callSendAPI(sender_psid, response) {
   // Construct the message body
