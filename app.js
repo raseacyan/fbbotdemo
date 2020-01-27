@@ -56,7 +56,7 @@ app.post('/webhook', (req, res) => {
 
 
       
-      console.log('Sender : ' + webhook_event.sender);
+      console.log('Sender : ' + webhook_event.sender.name);
 
       
 
