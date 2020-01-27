@@ -237,7 +237,7 @@ function getUserProfile(sender_psid) {
     "method": "GET"
   }, (err, res, body) => {
     if (!err) {
-      retrun body;
+      return body;
     } else {
       console.error("Error:" + err);
     }
