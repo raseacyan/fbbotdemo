@@ -144,7 +144,9 @@ function handleMessage(sender_psid, received_message) {
   }
   else if (received_message.text == "who am i") {    
     
-    getUserProfile(sender_psid);
+    let userProfile = getUserProfile(sender_psid);
+    let user_image = userProfile.profile_pic;
+    console.log(user_image);
   }
    else if (received_message.text) {    
     // Create the payload for a basic text message, which
@@ -228,16 +230,14 @@ function callSendAPI(sender_psid, response) {
 }
 
 
-function getUserProfile(sender_psid) {
-  
-
+function getUserProfile(sender_psid) { 
   // Send the HTTP request to the Messenger Platform
   request({
     "uri": "https://graph.facebook.com/"+sender_psid+"?fields=first_name,last_name,profile_pic&access_token="+PAGE_ACCESS_TOKEN+"\"",
     "method": "GET"
   }, (err, res, body) => {
     if (!err) {
-      console.log('Body:' + body)
+      retrun body;
     } else {
       console.error("Error:" + err);
     }
