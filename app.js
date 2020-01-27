@@ -56,6 +56,7 @@ app.post('/webhook', (req, res) => {
 
 
       let sender_image = webhook_event.sender.profile_pic; 
+      console.log('Sender image: ' + sender_image);
 
       
 
@@ -140,7 +141,7 @@ function handleMessage(sender_psid, received_message) {
     response = {
       "text": `Hao Xie Xie. Ni Hao Mah!`
     }
-  }
+  }/*
   else if (received_message.text == "who am i") {    
     
     console.log('Sender image: ' + sender_image);
@@ -169,7 +170,7 @@ function handleMessage(sender_psid, received_message) {
         }
       }
     }
-  }
+  }*/
    else if (received_message.text) {    
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
