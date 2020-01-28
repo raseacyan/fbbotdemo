@@ -63,10 +63,8 @@ app.post('/webhook', (req, res) => {
       // Check if the event is a message or postback and
       // pass the event to the appropriate handler function
       if (webhook_event.message) {
-
         handleMessage(sender_psid, webhook_event.message);        
-      } else if (webhook_event.postback) {
-        
+      } else if (webhook_event.postback) {        
         handlePostback(sender_psid, webhook_event.postback);
       }
       
@@ -208,6 +206,8 @@ function handlePostback(sender_psid, received_postback) {
     response = { "text": "Thanks!" }
   } else if (payload === 'no') {
     response = { "text": "Oops, try sending another image." }
+  } else if(payload === "USER_DEFINED_PAYLOAD" ){
+    response = { "text": "Hello. I am from MT boxing" }
   }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
