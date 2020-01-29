@@ -238,7 +238,7 @@ function handlePostback(sender_psid, received_postback) {
                 obj.title = data.val().details;
                 //obj.subtitle = data.val().details;
                 obj.image_url= "https://i.imgur.com/OvMZBs9.jpg";
-                obj.buttons = [{"type":"postback", "title":"DELETE", "payload":"delete"}];
+                obj.buttons = [{"type":"postback", "title":"DELETE", "payload":"delete"+data.key}];
                 arr.push(obj);
                 console.log(arr);
             });
