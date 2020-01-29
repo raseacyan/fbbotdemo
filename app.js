@@ -249,31 +249,7 @@ function handlePostback(sender_psid, received_postback) {
                 "type": "template",
                 "payload": {
                   "template_type": "generic",
-                  "elements": [
-                  {
-                    "title": "Task",
-                    "subtitle": "task1",                    
-                    "buttons": [
-                      {
-                        "type": "postback",
-                        "title": "DELETE",
-                        "payload": "delete",
-                      }
-                    ],
-                  },
-                  {
-                    "title": "Task",
-                    "subtitle": "task2",                    
-                    "buttons": [
-                      {
-                        "type": "postback",
-                        "title": "DELETE",
-                        "payload": "delete",
-                      }
-                    ],
-                  }
-
-                  ]
+                  "elements": arr
                 }
               }
             }
