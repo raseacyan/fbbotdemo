@@ -191,6 +191,7 @@ function handlePostback(sender_psid, received_postback) {
   } 
   else if(payload === "yes-i-am" ){
     greetUser(sender_psid);
+    showMenu(sender_psid);
   }
   else if(payload === "no-i-am-not" ){
     response = { "text": "Oops, You are not you" }
@@ -269,6 +270,31 @@ async function whoami(sender_psid){
       }
     }
   callSendAPI(sender_psid, response);
+}
+
+function showMenu(sender_psid){
+  response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "button",
+          "text":"What do you want to do next?",
+          "buttons": [
+              {
+                "type": "postback",
+                "title": "View Tasks",
+                "payload": "view-tasks",
+              },
+              {
+                "type": "postback",
+                "title": "Add Task!",
+                "payload": "add-task",
+              }
+            ]
+        }
+      }
+    }
+    callSendAPI(sender_psid, response);
 }
 
 
