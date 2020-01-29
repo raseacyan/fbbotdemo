@@ -127,10 +127,7 @@ app.get('/webhook', (req, res) => {
 function handleMessage(sender_psid, received_message) {
   let response;
   
-  // Checks if the message contains text
   if (received_message.text == "hi") {    
-    // Create the payload for a basic text message, which
-    // will be added to the body of our request to the Send API
     response = {
       "text": `Min Ga Lar Par Sint!`
     }
@@ -141,20 +138,7 @@ function handleMessage(sender_psid, received_message) {
       "text": `Hao Xie Xie. Ni Hao Mah!`
     }
   }else if (received_message.text == "who am i") {    
-    //start
-        request({
-    "uri": "https://graph.facebook.com/"+sender_psid+"?fields=first_name,last_name,profile_pic&access_token=EAAGmSf4ySjMBAAyASiRcn34RFrZCHT2GqQFHYrYpJZCCAEZAWi4tyxYo2bnUZCtGtBnrG9PFDPTRiLevXfEs1Lqms2iZCwU6iW813hs2pgu9IgShfdqaAZAarKkMc0jDyB02LjS3tlP5evHgM1uGGwMEzkQXHsVkA7W4X8Uf9cNQZDZD",
-    "method": "GET"
-  }, (err, res, body) => {
-    if (!err) { 
-     let data = JSON.parse(body);  
-     let pic = data.profile_pic; 
-     test(pic, sender_psid);     
-    } else {
-      console.error("Error:" + err);
-    }
-  }); 
-    //end
+     function whoami(sender_psid);
   }else if (received_message.text) {    
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
@@ -206,53 +190,29 @@ function handlePostback(sender_psid, received_postback) {
     response = { "text": "Thanks!" }
   } else if (payload === 'no') {
     response = { "text": "Oops, try sending another image." }
-  } else if(payload === "USER_DEFINED_PAYLOAD" ){
-    response = { "text": "Hello. I am from MT boxing" }
+  } else if(payload === "get_started" ){
+    whoami(sender_psid);
+  } 
+  else if(payload === "yes-i-am" ){
+    response = { "text": "Hello Caesar" }
+  }
+  else if(payload === "no-i-am-not" ){
+    response = { "text": "Oops, You are not you" }
   }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);
 }
 
-function test(url, sender_psid){
-  let response;
-  response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "Is this you?",
-            "subtitle": "Tap a button to answer.",
-            "image_url": url,
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Yes!",
-                "payload": "yes",
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no",
-              }
-            ],
-          }]
-        }
-      }
-    }
-  callSendAPI(sender_psid, response);
-}
 
 function callSendAPI(sender_psid, response) {
-  // Construct the message body
+  
   let request_body = {
     "recipient": {
       "id": sender_psid
     },
     "message": response
   }
-
-  // Send the HTTP request to the Messenger Platform
+  
   request({
     "uri": "https://graph.facebook.com/v2.6/me/messages",
     "qs": { "access_token": PAGE_ACCESS_TOKEN },
@@ -268,134 +228,156 @@ function callSendAPI(sender_psid, response) {
 }
 
 
-function getUserProfile(sender_psid) { 
-
-  // Send the HTTP request to the Messenger Platform
-  return 
-  request({
-    "uri": "https://graph.facebook.com/"+sender_psid+"?fields=first_name,last_name,profile_pic&access_token="+PAGE_ACCESS_TOKEN+"\"",
-    "method": "GET"
-  }, (err, res, body) => {
-    if (!err) {
-       let data = {
-        "first_name": body.first_name,
-        "last_name": body.last_name,
-        "profile_pic": body.profile_pic
-      };
-      return data;
-     
+function getUserProfile(sender_psid) {
+  return new Promise(resolve => {
+    request({
+      "uri": "https://graph.facebook.com/"+sender_psid+"?fields=first_name,last_name,profile_pic&access_token=EAAGmSf4ySjMBAAyASiRcn34RFrZCHT2GqQFHYrYpJZCCAEZAWi4tyxYo2bnUZCtGtBnrG9PFDPTRiLevXfEs1Lqms2iZCwU6iW813hs2pgu9IgShfdqaAZAarKkMc0jDyB02LjS3tlP5evHgM1uGGwMEzkQXHsVkA7W4X8Uf9cNQZDZD",
+      "method": "GET"
+      }, (err, res, body) => {
+        if (!err) { 
+          let data = JSON.parse(body);  
+          resolve(data);                 
     } else {
       console.error("Error:" + err);
     }
-  });   
+    });
+  });
+}
+
+async function whoami(sender_psid){  
+  let user = await getUserProfile(sender_psid);   
+  let response;
+  response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Is this you?",
+            "subtitle": "Tap a button to answer.",
+            "image_url": user.profile_pic,
+            "buttons": [
+              {
+                "type": "postback",
+                "title": "Yes!",
+                "payload": "yes-i-am",
+              },
+              {
+                "type": "postback",
+                "title": "No!",
+                "payload": "no-i-am-not",
+              }
+            ],
+          }]
+        }
+      }
+    }
+  callSendAPI(sender_psid, response);
 }
 
 
+/*************************************
+FUNCTION TO SET UP GET STARTED BUTTON
+**************************************/
+
 function setupGetStartedButton(res){
-        var messageData = {
-                "get_started":{"payload":"USER_DEFINED_PAYLOAD"}                
-        };
-        // Start the request
-        request({
-            url: 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='+ PAGE_ACCESS_TOKEN,
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            form: messageData
-        },
-        function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                // Print out the response body
-                res.send(body);
+  let messageData = {"get_started":{"payload":"get_started"}};
 
-            } else { 
-                // TODO: Handle errors
-                res.send(body);
-            }
-        });
-    } 
+  request({
+      url: 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='+ PAGE_ACCESS_TOKEN,
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      form: messageData
+    },
+    function (error, response, body) {
+      if (!error && response.statusCode == 200) {        
+        res.send(body);
+      } else { 
+        // TODO: Handle errors
+        res.send(body);
+      }
+  });
+} 
 
-
+/**********************************
+FUNCTION TO SET UP PERSISTENT MENU
+***********************************/
 
 function setupPersistentMenu(res){
-        var messageData = { 
-            "persistent_menu":[
+  var messageData = { 
+      "persistent_menu":[
+          {
+            "locale":"default",
+            "composer_input_disabled":false,
+            "call_to_actions":[
                 {
-                  "locale":"default",
-                  "composer_input_disabled":false,
+                  "title":"Info",
+                  "type":"nested",
                   "call_to_actions":[
                       {
-                        "title":"Info",
-                        "type":"nested",
-                        "call_to_actions":[
-                            {
-                              "title":"Help",
-                              "type":"postback",
-                              "payload":"HELP_PAYLOAD"
-                            },
-                            {
-                              "title":"Contact Me",
-                              "type":"postback",
-                              "payload":"CONTACT_INFO_PAYLOAD"
-                            }
-                        ]
+                        "title":"Help",
+                        "type":"postback",
+                        "payload":"HELP_PAYLOAD"
                       },
                       {
-                        "type":"web_url",
-                        "title":"Visit website ",
-                        "url":"http://www.google.com",
-                        "webview_height_ratio":"full"
-                    }
-                ]
-            },
-            {
-              "locale":"zh_CN",
-              "composer_input_disabled":false
-            }
-          ]          
-        };
-        // Start the request
-        request({
-            url: 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='+ PAGE_ACCESS_TOKEN,
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            form: messageData
-        },
-        function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                // Print out the response body
-                res.send(body);
+                        "title":"Contact Me",
+                        "type":"postback",
+                        "payload":"CONTACT_INFO_PAYLOAD"
+                      }
+                  ]
+                },
+                {
+                  "type":"web_url",
+                  "title":"Visit website ",
+                  "url":"http://www.google.com",
+                  "webview_height_ratio":"full"
+              }
+          ]
+      },
+      {
+        "locale":"zh_CN",
+        "composer_input_disabled":false
+      }
+    ]          
+  };
+        
+  request({
+      url: 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='+ PAGE_ACCESS_TOKEN,
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      form: messageData
+  },
+  function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+          res.send(body);
+      } else { 
+          res.send(body);
+      }
+  });
+} 
 
-            } else { 
-                // TODO: Handle errors
-                res.send(body);
-            }
-        });
-    } 
-
-
+/***********************
+FUNCTION TO REMOVE MENU
+************************/
 
 function removePersistentMenu(res){
-        var messageData = {
-                "fields": [
-                   "persistent_menu" ,
-                   "get_started"                 
-                ]               
-        };
-        // Start the request
-        request({
-            url: 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='+ PAGE_ACCESS_TOKEN,
-            method: 'DELETE',
-            headers: {'Content-Type': 'application/json'},
-            form: messageData
-        },
-        function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                // Print out the response body
-                res.send(body);
-
-            } else { 
-                // TODO: Handle errors
-                res.send(body);
-            }
-        });
-    } 
+  var messageData = {
+          "fields": [
+             "persistent_menu" ,
+             "get_started"                 
+          ]               
+  };  
+  request({
+      url: 'https://graph.facebook.com/v2.6/me/messenger_profile?access_token='+ PAGE_ACCESS_TOKEN,
+      method: 'DELETE',
+      headers: {'Content-Type': 'application/json'},
+      form: messageData
+  },
+  function (error, response, body) {
+      if (!error && response.statusCode == 200) {          
+          res.send(body);
+      } else {           
+          res.send(body);
+      }
+  });
+} 
