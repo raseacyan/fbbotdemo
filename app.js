@@ -238,14 +238,15 @@ function handlePostback(sender_psid, received_postback) {
                 arr.push(obj);
             });
 
-            console.log(arr);  
+            
 
             response = {
               "attachment": {
                 "type": "template",
                 "payload": {
                   "template_type": "generic",
-                  "elements": [{
+                  "elements": [
+                  {
                     "title": "Task",
                     "subtitle": "task1",                    
                     "buttons": [
@@ -255,7 +256,20 @@ function handlePostback(sender_psid, received_postback) {
                         "payload": "yes",
                       }
                     ],
-                  }]
+                  },
+                  {
+                    "title": "Task",
+                    "subtitle": "task2",                    
+                    "buttons": [
+                      {
+                        "type": "postback",
+                        "title": "DELETE",
+                        "payload": "yes",
+                      }
+                    ],
+                  }
+
+                  ]
                 }
               }
             }
