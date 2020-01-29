@@ -143,13 +143,14 @@ function handleMessage(sender_psid, received_message) {
   let response;
   
   
-  if (received_message.text == "hi") {    
-    let response1 = {
+  if (received_message.text == "hi") { 
+    let response1, response2;   
+    response1 = {
       "text": `Min Ga Lar Par Sint!`
-    } ;
-    let response2 = {
+    };
+    response2 = {
       "text" = `Min Ga Lar Par Bya!`
-    } 
+    } ;
     callSendAPI(sender_psid, response1).then(()=>{
       return callSendAPI(sender_psid, response2);
     });
