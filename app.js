@@ -144,9 +144,17 @@ function handleMessage(sender_psid, received_message) {
   
   
   if (received_message.text == "hi") {    
-    response = {
+    let response1 = {
       "text": `Min Ga Lar Par Sint!`
-    }  
+    } ;
+    let response2 = {
+      "text" = `Min Ga Lar Par Bya!`
+    } 
+    callSendAPI(sender_psid, response1).then(()=>{
+      return callSendAPI(sender_psid, response2);
+    });
+    
+    donothing();
   }else if (received_message.text == "ni hao") {  
     response = {
       "text": `Hao Xie Xie. Ni Hao Mah!`
@@ -189,6 +197,10 @@ function handleMessage(sender_psid, received_message) {
   
   // Send the response message
   callSendAPI(sender_psid, response);    
+}
+
+function donothing(){
+  console.log('do nothing');
 }
 
 function handlePostback(sender_psid, received_postback) {
