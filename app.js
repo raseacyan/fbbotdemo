@@ -235,8 +235,8 @@ function handlePostback(sender_psid, received_postback) {
                 var obj = {}
                 //obj._id  = data.key ;
                 //obj.details = data.val().details;
-                obj.title = "Task";
-                obj.subtitle = data.val().details;
+                obj.title = data.val().details;
+                //obj.subtitle = data.val().details;
                 obj.image_url= "https://i.imgur.com/OvMZBs9.jpg";
                 obj.buttons = [{"type":"postback", "title":"DELETE", "payload":"delete"}];
                 arr.push(obj);
@@ -250,6 +250,7 @@ function handlePostback(sender_psid, received_postback) {
                 "type": "template",
                 "payload": {
                   "template_type": "generic",
+                  "image_aspect_ratio": "square",
                   "elements": arr
                 }
               }
