@@ -138,7 +138,7 @@ function handleMessage(sender_psid, received_message) {
       "text": `Hao Xie Xie. Ni Hao Mah!`
     }
   }else if (received_message.text == "who am i") {    
-     function whoami(sender_psid);
+     whoami(sender_psid);
   }else if (received_message.text) {    
     // Create the payload for a basic text message, which
     // will be added to the body of our request to the Send API
