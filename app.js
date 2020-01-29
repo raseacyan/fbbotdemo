@@ -27,7 +27,22 @@ const
   request = require('request'),
   express = require('express'),
   body_parser = require('body-parser'),
+  firebase = require("firebase-admin"),
   app = express().use(body_parser.json()); // creates express http server
+
+//firebase initialize
+firebase.initializeApp({
+  credential: firebase.credential.cert({
+    "private_key": process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    "client_email": process.env.FIREBASE_CLIENT_EMAIL,
+    "project_id": process.env.FIREBASE_PROJECT_ID,
+  }),
+  databaseURL: "https://fir-b7a51.firebaseio.com"
+});
+
+var db = firebase.database();
+
+var itemsRef = db.ref("restricted_access/secret_document/items");
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
@@ -128,9 +143,14 @@ function handleMessage(sender_psid, received_message) {
   let response;
   
   if (received_message.text == "hi") {    
-    response = {
+    response1 = {
       "text": `Min Ga Lar Par Sint!`
     }
+    response2 = {
+      "text": `Min Ga Lar Par Kamya!`
+    }
+    callSendAPI(sender_psid, response1);   
+    callSendAPI(sender_psid, response2);   
   }else if (received_message.text == "ni hao") {  
     response = {
       "text": `Hao Xie Xie. Ni Hao Mah!`
@@ -184,6 +204,7 @@ function handlePostback(sender_psid, received_postback) {
   // Set the response based on the postback payload
   if (payload === 'yes') {
     response = { "text": "Thanks!" }
+
   } else if (payload === 'no') {
     response = { "text": "Oops, try sending another image." }
   } else if(payload === "get_started" ){
@@ -270,31 +291,6 @@ async function whoami(sender_psid){
       }
     }
   callSendAPI(sender_psid, response);
-}
-
-function showMenu(sender_psid){
-  response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "button",
-          "text": "Hello. "+user.first_name+" "+user.last_name+". It's so nice to meet you.What do you want to do next?",
-          "buttons": [
-              {
-                "type": "postback",
-                "title": "View Tasks",
-                "payload": "view-tasks",
-              },
-              {
-                "type": "postback",
-                "title": "Add Task!",
-                "payload": "add-task",
-              }
-            ]
-        }
-      }
-    }
-    callSendAPI(sender_psid, response);
 }
 
 
