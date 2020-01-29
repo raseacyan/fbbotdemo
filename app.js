@@ -149,8 +149,8 @@ function handleMessage(sender_psid, received_message) {
       "text": `Min Ga Lar Par Sint!`
     };
     response2 = {
-      "text" = `Min Ga Lar Par Bya!`
-    } ;
+      "text" : `Min Ga Lar Par Bya!`
+    };
     callSendAPI(sender_psid, response1).then(()=>{
       return callSendAPI(sender_psid, response2);
     });
