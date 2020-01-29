@@ -247,18 +247,12 @@ function handlePostback(sender_psid, received_postback) {
                   "template_type": "generic",
                   "elements": [{
                     "title": "Task",
-                    "subtitle": "task1",
-                    "image_url":"https://petersfancybrownhats.com/company_image.png",
+                    "subtitle": "task1",                    
                     "buttons": [
                       {
                         "type": "postback",
-                        "title": "Yes!",
+                        "title": "DELETE",
                         "payload": "yes",
-                      },
-                      {
-                        "type": "postback",
-                        "title": "No!",
-                        "payload": "no",
                       }
                     ],
                   }]
