@@ -131,22 +131,18 @@ function handleMessage(sender_psid, received_message) {
     response = {
       "text": `Min Ga Lar Par Sint!`
     }
-  }else if (received_message.text == "ni hao") {    
-    // Create the payload for a basic text message, which
-    // will be added to the body of our request to the Send API
+  }else if (received_message.text == "ni hao") {  
     response = {
       "text": `Hao Xie Xie. Ni Hao Mah!`
     }
   }else if (received_message.text == "who am i") {    
      whoami(sender_psid);
   }else if (received_message.text) {    
-    // Create the payload for a basic text message, which
-    // will be added to the body of our request to the Send API
     response = {
       "text": `You sent the message: "${received_message.text}". Now send me an attachment!`
     }
   } else if (received_message.attachments) {
-    // Get the URL of the message attachment
+    
     let attachment_url = received_message.attachments[0].payload.url;
     response = {
       "attachment": {
@@ -194,7 +190,7 @@ function handlePostback(sender_psid, received_postback) {
     whoami(sender_psid);
   } 
   else if(payload === "yes-i-am" ){
-    response = { "text": "Hello Caesar" }
+    greetUser(sender_psid);
   }
   else if(payload === "no-i-am-not" ){
     response = { "text": "Oops, You are not you" }
@@ -272,6 +268,14 @@ async function whoami(sender_psid){
         }
       }
     }
+  callSendAPI(sender_psid, response);
+}
+
+
+async function greetUser(sender_psid){  
+  let user = await getUserProfile(sender_psid);   
+  let response;
+  response = { "text": "Hello. "+user.first_name+" "+user.last_name+". It's so nice to meet you." }
   callSendAPI(sender_psid, response);
 }
 
