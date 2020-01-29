@@ -144,14 +144,14 @@ function handleMessage(sender_psid, received_message) {
   
   
   if (received_message.text == "hi") { 
-    let response1, response2;   
-    response1 = {
+      
+    let response1 = {
       "text": `Min Ga Lar Par Sint!`
     };
-    response2 = {
+    let response2 = {
       "text" : `Min Ga Lar Par Bya!`
     };
-    response3 = {
+    let response3 = {
       "text" : `How are you today!`
     };
     callSend(sender_psid, response1).then(()=>{
