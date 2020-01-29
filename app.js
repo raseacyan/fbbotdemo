@@ -151,8 +151,8 @@ function handleMessage(sender_psid, received_message) {
     response2 = {
       "text" : `Min Ga Lar Par Bya!`
     };
-    callSendAPI(sender_psid, response1).then(()=>{
-      return callSendAPI(sender_psid, response2);
+    callSend(sender_psid, response1).then(()=>{
+      return callSend(sender_psid, response2);
     });
     
     
@@ -197,12 +197,10 @@ function handleMessage(sender_psid, received_message) {
   } 
   
   // Send the response message
-  callSendAPI(sender_psid, response);    
+  callSend(sender_psid, response);    
 }
 
-function donothing(){
-  console.log('do nothing');
-}
+
 
 function handlePostback(sender_psid, received_postback) {
   console.log('ok')
@@ -227,7 +225,7 @@ function handlePostback(sender_psid, received_postback) {
     response = { "text": "Oops, You are not you" }
   }
   // Send the message to acknowledge the postback
-  callSendAPI(sender_psid, response);
+  callSend(sender_psid, response);
 }
 
 
@@ -257,7 +255,8 @@ function callSendAPI(sender_psid, response) {
 }
 
 async function callSend(sender_psid, response){
-
+  let send = await callSendAPI(sender_psid, response);
+  return 1;
 }
 
 
