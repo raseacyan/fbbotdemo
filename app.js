@@ -147,10 +147,10 @@ function handleMessage(sender_psid, received_message) {
   if (received_message.text == "hi") {    
     response1 = {
       "text": `Min Ga Lar Par Sint!`
-    }
+    };
     response2 = {
       "text": `Min Ga Lar Par Kamya!`
-    }
+    };
     callSendAPI(sender_psid, response1);   
     callSendAPI(sender_psid, response2);   
   }else if (received_message.text == "ni hao") {  
