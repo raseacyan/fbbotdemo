@@ -151,12 +151,17 @@ function handleMessage(sender_psid, received_message) {
     response2 = {
       "text" : `Min Ga Lar Par Bya!`
     };
+    response3 = {
+      "text" : `How are you today!`
+    };
     callSend(sender_psid, response1).then(()=>{
-      return callSend(sender_psid, response2);
-    });
-    
-    
-  }else if (received_message.text == "ni hao") {  
+      return callSend(sender_psid, response2).then(()=>{
+        return callSend(sender_psid, response3)
+      });
+    });   
+  }
+
+  if (received_message.text == "ni hao") {  
     response = {
       "text": `Hao Xie Xie. Ni Hao Mah!`
     }
