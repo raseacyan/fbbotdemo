@@ -240,6 +240,32 @@ function handlePostback(sender_psid, received_postback) {
 
             console.log(arr);  
 
+            response = {
+              "attachment": {
+                "type": "template",
+                "payload": {
+                  "template_type": "generic",
+                  "elements": [{
+                    "title": "Task",
+                    "subtitle": "task1",
+                    
+                    "buttons": [
+                      {
+                        "type": "postback",
+                        "title": "Yes!",
+                        "payload": "yes",
+                      },
+                      {
+                        "type": "postback",
+                        "title": "No!",
+                        "payload": "no",
+                      }
+                    ],
+                  }]
+                }
+              }
+            }
+
           });
 
   }
