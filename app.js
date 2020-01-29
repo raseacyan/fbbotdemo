@@ -265,6 +265,7 @@ function handlePostback(sender_psid, received_postback) {
                 }
               }
             }
+            callSend(sender_psid, response);
 
           });
 
