@@ -141,18 +141,12 @@ app.get('/webhook', (req, res) => {
 
 function handleMessage(sender_psid, received_message) {
   let response;
-  let response1;
-  let response2;
+  
   
   if (received_message.text == "hi") {    
-    response1 = {
+    response = {
       "text": `Min Ga Lar Par Sint!`
-    };
-    response2 = {
-      "text": `Min Ga Lar Par Kamya!`
-    };
-    callSendAPI(sender_psid, response1);   
-    callSendAPI(sender_psid, response2);   
+    }  
   }else if (received_message.text == "ni hao") {  
     response = {
       "text": `Hao Xie Xie. Ni Hao Mah!`
@@ -232,20 +226,23 @@ function callSendAPI(sender_psid, response) {
     },
     "message": response
   }
-  
-  request({
-    "uri": "https://graph.facebook.com/v2.6/me/messages",
-    "qs": { "access_token": PAGE_ACCESS_TOKEN },
-    "method": "POST",
-    "json": request_body
-  }, (err, res, body) => {
-    if (!err) {
-      console.log('message sent!')
-    } else {
-      console.error("Unable to send message:" + err);
-    }
-  }); 
+  return new Promise(resolve => {
+    request({
+      "uri": "https://graph.facebook.com/v2.6/me/messages",
+      "qs": { "access_token": PAGE_ACCESS_TOKEN },
+      "method": "POST",
+      "json": request_body
+    }, (err, res, body) => {
+      if (!err) {
+        resolve('message sent!')
+      } else {
+        console.error("Unable to send message:" + err);
+      }
+    }); 
+  });
 }
+
+
 
 
 function getUserProfile(sender_psid) {
