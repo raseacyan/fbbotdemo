@@ -155,7 +155,7 @@ function handleMessage(sender_psid, received_message) {
       return callSendAPI(sender_psid, response2);
     });
     
-    donothing();
+    
   }else if (received_message.text == "ni hao") {  
     response = {
       "text": `Hao Xie Xie. Ni Hao Mah!`
@@ -239,6 +239,7 @@ function callSendAPI(sender_psid, response) {
     },
     "message": response
   }
+  
   return new Promise(resolve => {
     request({
       "uri": "https://graph.facebook.com/v2.6/me/messages",
@@ -253,6 +254,10 @@ function callSendAPI(sender_psid, response) {
       }
     }); 
   });
+}
+
+async function callSend(sender_psid, response){
+
 }
 
 
