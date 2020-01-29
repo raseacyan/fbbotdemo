@@ -143,10 +143,10 @@ function handleMessage(sender_psid, received_message) {
   let response;
   
   if (received_message.text == "hi") {    
-    response1 = {
+    let response1 = {
       "text": `Min Ga Lar Par Sint!`
     }
-    response2 = {
+    let response2 = {
       "text": `Min Ga Lar Par Kamya!`
     }
     callSendAPI(sender_psid, response1);   
