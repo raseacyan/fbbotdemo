@@ -233,9 +233,13 @@ function handlePostback(sender_psid, received_postback) {
             var arr = [];
             snapshot.forEach(function(data) {
                 var obj = {}
-                obj._id  = data.key ;
-                obj.details = data.val().details;
+                //obj._id  = data.key ;
+                //obj.details = data.val().details;
+                obj.title = "Task";
+                obj.subtitle = data.val().details;
+                obj.buttons = [{"type":"postback", "title":"DELETE", "payload":"delete"}];
                 arr.push(obj);
+                console.log(arr);
             });
 
             
@@ -253,7 +257,7 @@ function handlePostback(sender_psid, received_postback) {
                       {
                         "type": "postback",
                         "title": "DELETE",
-                        "payload": "yes",
+                        "payload": "delete",
                       }
                     ],
                   },
@@ -264,7 +268,7 @@ function handlePostback(sender_psid, received_postback) {
                       {
                         "type": "postback",
                         "title": "DELETE",
-                        "payload": "yes",
+                        "payload": "delete",
                       }
                     ],
                   }
