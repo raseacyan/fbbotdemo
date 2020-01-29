@@ -216,7 +216,6 @@ function handlePostback(sender_psid, received_postback) {
   // Set the response based on the postback payload
   if (payload === 'yes') {
     response = { "text": "Thanks!" }
-
   } else if (payload === 'no') {
     response = { "text": "Oops, try sending another image." }
   } else if(payload === "get_started" ){
@@ -228,6 +227,21 @@ function handlePostback(sender_psid, received_postback) {
   }
   else if(payload === "no-i-am-not" ){
     response = { "text": "Oops, You are not you" }
+  }else if(payload === "view-tasks"){
+    itemsRef.once("value", function(snapshot) {
+            
+            var arr = [];
+            snapshot.forEach(function(data) {
+                var obj = {}
+                obj._id  = data.key ;
+                obj.details = data.val().details;
+                arr.push(obj);
+            });
+
+            console.log(arr);  
+
+          });
+
   }
   // Send the message to acknowledge the postback
   callSend(sender_psid, response);
@@ -263,7 +277,6 @@ async function callSend(sender_psid, response){
   let send = await callSendAPI(sender_psid, response);
   return 1;
 }
-
 
 
 
