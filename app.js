@@ -143,8 +143,7 @@ function handleMessage(sender_psid, received_message) {
   let response;
   
   
-  if (received_message.text == "hi") { 
-      
+  if (received_message.text == "hi") {       
     let response1 = {
       "text": `Min Ga Lar Par Sint!`
     };
@@ -156,10 +155,10 @@ function handleMessage(sender_psid, received_message) {
     };
     callSend(sender_psid, response1).then(()=>{
       return callSend(sender_psid, response2).then(()=>{
-        return callSend(sender_psid, response3)
+        return callSend(sender_psid, response3);
       });
     });   
-  }
+  };
 
   if (received_message.text == "ni hao") {  
     response = {
@@ -167,7 +166,7 @@ function handleMessage(sender_psid, received_message) {
     }
   }else if (received_message.text == "who am i") {    
      whoami(sender_psid);
-  }else if (received_message.text) {    
+  }else if (received_message.text && received_message.text != "hi") {    
     response = {
       "text": `You sent the message: "${received_message.text}". Now send me an attachment!`
     }
@@ -204,6 +203,7 @@ function handleMessage(sender_psid, received_message) {
   // Send the response message
   callSend(sender_psid, response);    
 }
+
 
 
 
@@ -311,7 +311,7 @@ async function whoami(sender_psid){
         }
       }
     }
-  callSendAPI(sender_psid, response);
+  callSend(sender_psid, response);
 }
 
 
