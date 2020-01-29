@@ -248,7 +248,7 @@ function handlePostback(sender_psid, received_postback) {
                   "elements": [{
                     "title": "Task",
                     "subtitle": "task1",
-                    
+                    "image_url":"https://petersfancybrownhats.com/company_image.png",
                     "buttons": [
                       {
                         "type": "postback",
