@@ -191,7 +191,7 @@ function handlePostback(sender_psid, received_postback) {
   } 
   else if(payload === "yes-i-am" ){
     greetUser(sender_psid);
-    showMenu(sender_psid);
+   
   }
   else if(payload === "no-i-am-not" ){
     response = { "text": "Oops, You are not you" }
@@ -278,7 +278,7 @@ function showMenu(sender_psid){
         "type": "template",
         "payload": {
           "template_type": "button",
-          "text":"What do you want to do next?",
+          "text": "Hello. "+user.first_name+" "+user.last_name+". It's so nice to meet you.What do you want to do next?",
           "buttons": [
               {
                 "type": "postback",
@@ -301,7 +301,27 @@ function showMenu(sender_psid){
 async function greetUser(sender_psid){  
   let user = await getUserProfile(sender_psid);   
   let response;
-  response = { "text": "Hello. "+user.first_name+" "+user.last_name+". It's so nice to meet you." }
+  response = {
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "button",
+          "text": "Hello. "+user.first_name+" "+user.last_name+". It's so nice to meet you.What do you want to do next?",
+          "buttons": [
+              {
+                "type": "postback",
+                "title": "View Tasks",
+                "payload": "view-tasks",
+              },
+              {
+                "type": "postback",
+                "title": "Add Task!",
+                "payload": "add-task",
+              }
+            ]
+        }
+      }
+    }
   callSendAPI(sender_psid, response);
 }
 
