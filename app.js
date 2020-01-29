@@ -141,12 +141,14 @@ app.get('/webhook', (req, res) => {
 
 function handleMessage(sender_psid, received_message) {
   let response;
+  let response1;
+  let response2;
   
   if (received_message.text == "hi") {    
-    let response1 = {
+    response1 = {
       "text": `Min Ga Lar Par Sint!`
     }
-    let response2 = {
+    response2 = {
       "text": `Min Ga Lar Par Kamya!`
     }
     callSendAPI(sender_psid, response1);   
