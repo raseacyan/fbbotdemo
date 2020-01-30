@@ -42,7 +42,7 @@ firebase.initializeApp({
 
 var db = firebase.database();
 
-var add = false;
+let add = false;
 
 var itemsRef = db.ref("restricted_access/secret_document/items");
 
@@ -168,8 +168,12 @@ function handleMessage(sender_psid, received_message) {
     }
   }else if(received_message.text && add){
     add = false;
+    let item = received_message.text;         
+          
+    let newItemRef = itemsRef.push(item);          
+    let itemId = newItemRef.key;
     response = {
-      "text": `Thanks. you have added task`
+      "text": `Great! You have added new task`
     }
 
   }
