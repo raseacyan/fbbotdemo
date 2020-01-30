@@ -228,8 +228,7 @@ function handlePostback(sender_psid, received_postback) {
   else if(payload === "no-i-am-not" ){
     response = { "text": "Oops, You are not you" }
   }else if(payload === "view-tasks"){
-    itemsRef.once("value", function(snapshot) {
-            
+    itemsRef.once("value", function(snapshot) {            
             var arr = [];
             snapshot.forEach(function(data) {
                 var obj = {}
@@ -241,9 +240,7 @@ function handlePostback(sender_psid, received_postback) {
                 obj.buttons = [{"type":"postback", "title":"DELETE", "payload":"delete"+data.key}];
                 arr.push(obj);
                 console.log(arr);
-            });
-
-            
+            });           
 
             response = {
               "attachment": {
@@ -258,6 +255,18 @@ function handlePostback(sender_psid, received_postback) {
             callSend(sender_psid, response);
 
           });
+
+  }else if(payload === "add-task"){
+    response = {
+      "text": `Enter new task`
+    }
+    callSend(sender_psid, response);
+    if (received_message.text == "ni hao") {  
+    response = {
+      "text": `Thank you!`
+    }
+     callSend(sender_psid, response);
+    }
 
   }
   // Send the message to acknowledge the postback
