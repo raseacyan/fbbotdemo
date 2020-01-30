@@ -168,7 +168,7 @@ function handleMessage(sender_psid, received_message) {
     }
   }else if(received_message.text && add){
     add = false;
-    let item = received_message.text;         
+    let item = {"details":received_message.text};         
           
     let newItemRef = itemsRef.push(item);          
     let itemId = newItemRef.key;
