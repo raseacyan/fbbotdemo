@@ -42,6 +42,8 @@ firebase.initializeApp({
 
 var db = firebase.database();
 
+var add = false;
+
 var itemsRef = db.ref("restricted_access/secret_document/items");
 
 // Sets server port and logs message on success
@@ -164,7 +166,12 @@ function handleMessage(sender_psid, received_message) {
     response = {
       "text": `Hao Xie Xie. Ni Hao Mah!`
     }
-  }else if (received_message.text == "who am i") {    
+  }else if(received_message.text && add){
+    response = {
+      "text": `Thanks. you have added task`
+    }
+  }
+  else if (received_message.text == "who am i") {    
      whoami(sender_psid);
   }else if (received_message.text && received_message.text != "hi") {    
     response = {
@@ -216,8 +223,10 @@ function handlePostback(sender_psid, received_postback) {
   // Set the response based on the postback payload
   if (payload === 'yes') {
     response = { "text": "Thanks!" }
+    callSend(sender_psid, response);
   } else if (payload === 'no') {
     response = { "text": "Oops, try sending another image." }
+    callSend(sender_psid, response);
   } else if(payload === "get_started" ){
     whoami(sender_psid);
   } 
@@ -227,6 +236,7 @@ function handlePostback(sender_psid, received_postback) {
   }
   else if(payload === "no-i-am-not" ){
     response = { "text": "Oops, You are not you" }
+    callSend(sender_psid, response);
   }else if(payload === "view-tasks"){
     itemsRef.once("value", function(snapshot) {            
             var arr = [];
@@ -252,6 +262,7 @@ function handlePostback(sender_psid, received_postback) {
                 }
               }
             }
+
             callSend(sender_psid, response);
 
           });
@@ -260,17 +271,12 @@ function handlePostback(sender_psid, received_postback) {
     response = {
       "text": `Enter new task`
     }
-    callSend(sender_psid, response);
-    if (received_message.text == "add") {  
-      response = {
-        "text": `Thank you!`
-      }
-      callSend(sender_psid, response);
-    }
+    add = true;
+    callSend(sender_psid, response);   
 
   }
-  // Send the message to acknowledge the postback
-  callSend(sender_psid, response);
+ 
+  
 }
 
 
