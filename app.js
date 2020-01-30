@@ -167,10 +167,11 @@ function handleMessage(sender_psid, received_message) {
       "text": `Hao Xie Xie. Ni Hao Mah!`
     }
   }else if(received_message.text && add){
+    add = false;
     response = {
       "text": `Thanks. you have added task`
     }
-    add = false;
+
   }
   else if (received_message.text == "who am i") {    
      whoami(sender_psid);
