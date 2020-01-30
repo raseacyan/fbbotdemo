@@ -261,11 +261,11 @@ function handlePostback(sender_psid, received_postback) {
       "text": `Enter new task`
     }
     callSend(sender_psid, response);
-    if (received_message.text == "ni hao") {  
-    response = {
-      "text": `Thank you!`
-    }
-     callSend(sender_psid, response);
+    if (received_message.text == "add") {  
+      response = {
+        "text": `Thank you!`
+      }
+      callSend(sender_psid, response);
     }
 
   }
