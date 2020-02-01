@@ -153,6 +153,9 @@ function handleMessage(sender_psid, received_message) {
         case "add-task":
             addTask(sender_psid);
           break;
+        case "view":
+            addTask(sender_psid);
+          break;
         case "attachment":
           response = {"text": `You sent the message: "${received_message.text}". Now send me an attachment!`};
           callSend(sender_psid, response);
@@ -219,7 +222,14 @@ function handlePostback(sender_psid, received_postback) {
     response = { "text": "Oops, You are not you" }
     callSend(sender_psid, response);
   }else if(payload === "view-tasks"){
-    itemsRef.once("value", function(snapshot) {            
+    viewTasks(sender_psid);
+  }else if(payload === "add-task"){
+      addTask(sender_psid);
+  } 
+}
+
+function viewTasks(sender_psid){
+  itemsRef.once("value", function(snapshot) {            
             var arr = [];
             snapshot.forEach(function(data) {
                 var obj = {}
@@ -247,12 +257,7 @@ function handlePostback(sender_psid, received_postback) {
             callSend(sender_psid, response);
 
           });
-
-  }else if(payload === "add-task"){
-      addTask(sender_psid);
-  } 
 }
-
 
 function addTask(sender_psid){
   response = {
