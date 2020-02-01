@@ -42,7 +42,7 @@ firebase.initializeApp({
 
 var db = firebase.database();
 
-let add = false;
+let addNewTask = false;
 
 var itemsRef = db.ref("restricted_access/secret_document/items");
 
@@ -66,19 +66,10 @@ app.post('/webhook', (req, res) => {
       let webhook_event = entry.messaging[0];
       console.log(webhook_event);
 
-
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
       console.log('Sender ID: ' + sender_psid);  
 
-
-      
-      
-
-      
-
-      // Check if the event is a message or postback and
-      // pass the event to the appropriate handler function
       if (webhook_event.message) {
         handleMessage(sender_psid, webhook_event.message);        
       } else if (webhook_event.postback) {        
@@ -96,15 +87,17 @@ app.post('/webhook', (req, res) => {
 
 });
 
-
+//Set up Get Started Button. To run one time
 app.get('/setgsbutton',function(req,res){
     setupGetStartedButton(res);    
 });
 
+//Set up Persistent Menu. To run one time
 app.get('/setpersistentmenu',function(req,res){
     setupPersistentMenu(res);    
 });
 
+//Remove Get Started and Persistent Menu. To run one time
 app.get('/clear',function(req,res){    
     removePersistentMenu(res);
 });
@@ -119,21 +112,15 @@ app.get('/webhook', (req, res) => {
   // Parse params from the webhook verification request
   let mode = req.query['hub.mode'];
   let token = req.query['hub.verify_token'];
-  let challenge = req.query['hub.challenge'];
-
-  
+  let challenge = req.query['hub.challenge'];  
     
   // Check if a token and mode were sent
-  if (mode && token) {
-    
-  
+  if (mode && token) {  
     // Check the mode and token sent are correct
-    if (mode === 'subscribe' && token === VERIFY_TOKEN) {
-      
+    if (mode === 'subscribe' && token === VERIFY_TOKEN) {      
       // Respond with 200 OK and challenge token from the request
       console.log('WEBHOOK_VERIFIED');
-      res.status(200).send(challenge);
-    
+      res.status(200).send(challenge);    
     } else {
       // Responds with '403 Forbidden' if verify tokens do not match
       res.sendStatus(403);      
@@ -141,50 +128,40 @@ app.get('/webhook', (req, res) => {
   }
 });
 
+/**********************************************
+Function to Handle when user send text message
+***********************************************/
+
 function handleMessage(sender_psid, received_message) {
+  let received_message;
   let response;
-  
-  
-  if (received_message.text == "hi") {       
-    let response1 = {
-      "text": `Min Ga Lar Par Sint!`
-    };
-    let response2 = {
-      "text" : `Min Ga Lar Par Bya!`
-    };
-    let response3 = {
-      "text" : `How are you today!`
-    };
-    callSend(sender_psid, response1).then(()=>{
-      return callSend(sender_psid, response2).then(()=>{
-        return callSend(sender_psid, response3);
-      });
-    });   
-  };
 
-  if (received_message.text == "ni hao") {  
-    response = {
-      "text": `Hao Xie Xie. Ni Hao Mah!`
-    }
-  }else if(received_message.text && add){
-    add = false;
-    let item = {"details":received_message.text};         
-          
-    let newItemRef = itemsRef.push(item);          
-    let itemId = newItemRef.key;
-    response = {
-      "text": `Great! You have added new task`
-    }
+  if(received_message.text){
+    received_message = received_message.text.toLowerCase();
 
-  }
-  else if (received_message.text == "who am i") {    
-     whoami(sender_psid);
-  }else if (received_message.text && received_message.text != "hi") {    
-    response = {
-      "text": `You sent the message: "${received_message.text}". Now send me an attachment!`
+    if(addNewTask){
+      saveTask(sender_psid);
+    } else {
+      switch(received_message) {
+        case "hello":
+        case "hi":
+            greetUser(sender_psid);
+          break;
+        case "who am i":
+            whoami(sender_psid);
+          break;
+        case "add-task":
+            addTask(sender_psid);
+          break;
+        case "attachment":
+           let response = {"text": "You sent the message: "${received_message.text}". Now send me an attachment!"};
+           callSend(sender_psid, response);
+          break;
+        default:
+            unknownCommand(sender_psid);
+        }
     }
-  } else if (received_message.attachments) {
-    
+  } else if(received_message.attachments){
     let attachment_url = received_message.attachments[0].payload.url;
     response = {
       "attachment": {
@@ -199,46 +176,44 @@ function handleMessage(sender_psid, received_message) {
               {
                 "type": "postback",
                 "title": "Yes!",
-                "payload": "yes",
+                "payload": "yes-attachment",
               },
               {
                 "type": "postback",
                 "title": "No!",
-                "payload": "no",
+                "payload": "no-attachment",
               }
             ],
           }]
         }
       }
     }
-  } 
-  
-  // Send the response message
-  callSend(sender_psid, response);    
+    callSend(sender_psid, response);
+  }
 }
 
-
-
+/*********************************************
+Function to handle when user click button
+**********************************************/
 
 function handlePostback(sender_psid, received_postback) {
-  console.log('ok')
-   let response;
+  
+  let response;
   // Get the payload for the postback
   let payload = received_postback.payload;
 
   // Set the response based on the postback payload
-  if (payload === 'yes') {
+  if (payload === 'yes-attachment') {
     response = { "text": "Thanks!" }
     callSend(sender_psid, response);
-  } else if (payload === 'no') {
+  } else if (payload === 'no-attachment') {
     response = { "text": "Oops, try sending another image." }
     callSend(sender_psid, response);
   } else if(payload === "get_started" ){
     whoami(sender_psid);
   } 
   else if(payload === "yes-i-am" ){
-    greetUser(sender_psid);
-   
+    greetUser(sender_psid);   
   }
   else if(payload === "no-i-am-not" ){
     response = { "text": "Oops, You are not you" }
@@ -274,20 +249,44 @@ function handlePostback(sender_psid, received_postback) {
           });
 
   }else if(payload === "add-task"){
-    response = {
-      "text": `Enter new task`
-    }
-    add = true;
-    callSend(sender_psid, response);   
-
-  }
- 
-  
+      addTask(sender_psid);
+  } 
 }
 
 
-function callSendAPI(sender_psid, response) {
-  
+function addTask(sender_psid){
+  response = {
+      "text": `Enter new task`
+    }
+    add = true;
+    callSend(sender_psid, response); 
+}
+
+function saveTask(sender_psid){
+  add = false;
+      let item = {"details":received_message.text};           
+      let newItemRef = itemsRef.push(item);          
+      let itemId = newItemRef.key;
+      response = { "text": `Great! You have added new task` }
+      callSend(sender_psid, response);
+}
+
+function unknownCommand(sender_psid){
+    let response1 = {"text": "I do not quite understand your command"};
+    let response2 = {"text": "To view tasks, type 'view'"};
+    let response3 = {"text": "To add new task, type 'new'"};   
+    let response4 = {"text": "If you forget who you are, type 'who am i'"};
+      callSend(sender_psid, response1).then(()=>{
+        return callSend(sender_psid, response2).then(()=>{
+          return callSend(sender_psid, response3).then(()=>{
+            return callSend(sender_psid, response4);
+          });
+        });
+    });  
+}
+
+
+function callSendAPI(sender_psid, response) {  
   let request_body = {
     "recipient": {
       "id": sender_psid
@@ -365,7 +364,9 @@ async function whoami(sender_psid){
   callSend(sender_psid, response);
 }
 
-
+/***********************
+FUNCTION TO GREET USER 
+************************/
 async function greetUser(sender_psid){  
   let user = await getUserProfile(sender_psid);   
   let response;
