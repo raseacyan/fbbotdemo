@@ -133,7 +133,7 @@ Function to Handle when user send text message
 ***********************************************/
 
 function handleMessage(sender_psid, received_message) {
-  let received_message;
+  let received_message = received_message;
   let response;
 
   if(received_message.text){
