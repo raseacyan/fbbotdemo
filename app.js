@@ -153,10 +153,10 @@ function handleMessage(sender_psid, received_message) {
         case "add-task":
             addTask(sender_psid);
           break;
-        case "attachment":
-           response = {"text": "You sent the message: "${received_message.text}". Now send me an attachment!"};
-           callSend(sender_psid, response);
-          break;
+        //case "attachment":
+          // response = {"text": "You sent the message: "${received_message.text}". Now send me an attachment!"};
+          // callSend(sender_psid, response);
+          //break;
         default:
             unknownCommand(sender_psid);
         }
