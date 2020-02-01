@@ -133,16 +133,16 @@ Function to Handle when user send text message
 ***********************************************/
 
 function handleMessage(sender_psid, received_message) {
-  let message;
+  //let message;
   let response;
 
   if(received_message.text){
-    message = received_message.text.toLowerCase();
+   
 
-    if(message){
-      saveTask(sender_psid);
+    if(addNewTask){
+      saveTask(sender_psid, received_message);
     } else {
-      switch(received_message) {
+      switch(received_message.text) {
         case "hello":
         case "hi":
             greetUser(sender_psid);
@@ -262,7 +262,7 @@ function addTask(sender_psid){
     callSend(sender_psid, response); 
 }
 
-function saveTask(sender_psid){
+function saveTask(sender_psid, received_message){
   add = false;
       let item = {"details":received_message.text};           
       let newItemRef = itemsRef.push(item);          
