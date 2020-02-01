@@ -229,6 +229,7 @@ function handlePostback(sender_psid, received_postback) {
 }
 
 function viewTasks(sender_psid){
+  let response;
   itemsRef.once("value", function(snapshot) {            
             var arr = [];
             snapshot.forEach(function(data) {
