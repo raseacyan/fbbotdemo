@@ -154,7 +154,7 @@ function handleMessage(sender_psid, received_message) {
             addTask(sender_psid);
           break;
         case "attachment":
-           let response = {"text": "You sent the message: "${received_message.text}". Now send me an attachment!"};
+           response = {"text": "You sent the message: "${received_message.text}". Now send me an attachment!"};
            callSend(sender_psid, response);
           break;
         default:
