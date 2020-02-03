@@ -246,7 +246,13 @@ function handlePostback(sender_psid, received_postback) {
 
 function viewTasks(sender_psid){
   let response;
-  usersRef.once("value", function(snapshot) {            
+  
+    usersRef.once("value", function(snapshot){     
+
+      if (snapshot.hasChild(sender_psid)) {
+        let user_ref = usersRef.child(sender_psid);
+        
+        user_ref.once("value", function(snapshot) {            
             var arr = [];
             snapshot.forEach(function(data) {
                 var obj = {}
@@ -277,8 +283,20 @@ function viewTasks(sender_psid){
             }
 
             callSend(sender_psid, response);
-
           });
+
+
+
+      }else{
+        response = {
+          "text": `You do not have any task.`
+        };       
+        callSend(sender_psid, response);  
+      }
+  });
+
+
+  
 }
 
 
@@ -303,8 +321,7 @@ function addTask(sender_psid){
   let response;
   let numTasks
 
-  usersRef.once("value", function(snapshot){            
-      
+  usersRef.once("value", function(snapshot){     
 
       if (snapshot.hasChild(sender_psid)) {
         let user_ref = usersRef.child(sender_psid);
@@ -331,17 +348,9 @@ function addTask(sender_psid){
         addNewTask = true;    
         callSend(sender_psid, response);  
       }
-
-      
-
-
   });
 
-  
-  
-  
-  
-   
+
 }
 
 function saveTask(sender_psid, received_message){
