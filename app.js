@@ -303,6 +303,7 @@ function addTask(sender_psid){
     response = {
       "text": `You already have 10/10 task. Complete them first`
     };
+    addNewTask = false; 
     callSend(sender_psid, response);  
   }else{
     response = {
