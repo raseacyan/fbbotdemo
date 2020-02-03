@@ -44,8 +44,8 @@ var db = firebase.database();
 var addNewTask = false;
 
 
-var itemsRef = db.ref("restricted_access/secret_document");
-var usersRef = itemsRef.child("Users");
+//var itemsRef = db.ref("restricted_access/secret_document");
+var usersRef = db.ref("restricted_access/secret_document");
 
 
 // Sets server port and logs message on success
@@ -246,7 +246,7 @@ function handlePostback(sender_psid, received_postback) {
 
 function viewTasks(sender_psid){
   let response;
-  itemsRef.once("value", function(snapshot) {            
+  usersRef.once("value", function(snapshot) {            
             var arr = [];
             snapshot.forEach(function(data) {
                 var obj = {}
@@ -283,7 +283,7 @@ function viewTasks(sender_psid){
 
 
 function deleteTask(sender_psid, taskId){          
-  let itemRemove = itemsRef.child(taskId);          
+  let itemRemove = usersRef.child(sender_psid).child(taskId);          
   itemRemove.remove();
   notifyDelete(sender_psid);
 }
@@ -303,7 +303,7 @@ function addTask(sender_psid){
   let response;
   let numTasks
 
-  itemsRef.once("value", function(snapshot){            
+  usersRef.once("value", function(snapshot){            
       numTasks = Object.keys(snapshot.val()).length;
 
       if (numTasks > 9){
@@ -330,9 +330,9 @@ function addTask(sender_psid){
 
 function saveTask(sender_psid, received_message){
   addNewTask = false;
-  let item = {"details":received_message.text};           
-  let newItemRef = itemsRef.push(sender_psid).push(item);          
-  let itemId = newItemRef.key;
+  let item = {sender_psid:"details":received_message.text};           
+  let newUserRef = usersRef.push(item);          
+  let itemId = newUserRef.key;
   let response = { "text": `Great! You have added new task` }
   callSend(sender_psid, response);
 }
