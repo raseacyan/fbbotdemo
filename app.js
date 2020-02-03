@@ -41,7 +41,7 @@ firebase.initializeApp({
 });
 
 var db = firebase.database();
-
+var addNewTask = false;
 
 
 var itemsRef = db.ref("restricted_access/secret_document/items");
@@ -54,7 +54,7 @@ app.post('/webhook', (req, res) => {
 
   // Parse the request body from the POST
   let body = req.body;
-  let addNewTask = false;
+
   
 
   // Check the webhook event is from a Page subscription
@@ -135,6 +135,7 @@ Function to Handle when user send text message
 function handleMessage(sender_psid, received_message) {
   //let message;
   let response;
+
 
   if(received_message.text){
     console.log(addNewTask);
