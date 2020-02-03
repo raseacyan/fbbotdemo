@@ -290,25 +290,29 @@ function notifyDelete(sender_psid){
 
 
 function getNumTasks(){
-  itemsRef.once("value", function(snapshot) {
-            
-  console.log(Object.keys(snapshot.val()).length);
-            
-
-           
-
+  itemsRef.once("value", function(snapshot) {            
+    return Object.keys(snapshot.val()).length; 
   }); 
 }
 
 function addTask(sender_psid){
-  let num = getNumTasks();
-  console.log(num);
+  let response;
+  let numTasks = getNumTasks();
   
-  let response = {
+  if (numTasks > 9){
+    response = {
+      "text": `You already have 10/10 task. Complete them first`
+    };
+    callSend(sender_psid, response);  
+  }else{
+    response = {
       "text": `Enter new task`
     };
     addNewTask = true;    
-    callSend(sender_psid, response);   
+    callSend(sender_psid, response);  
+  }
+  
+   
 }
 
 function saveTask(sender_psid, received_message){
