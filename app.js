@@ -292,7 +292,7 @@ function notifyDelete(sender_psid){
 function getNumTasks(){
   itemsRef.once("value", function(snapshot) {
             
-  console.log(snapshot.val());
+  return Object.keys(snapshot).length;
             
 
            
@@ -301,7 +301,8 @@ function getNumTasks(){
 }
 
 function addTask(sender_psid){
-  getNumTasks();
+  let num = getNumTasks();
+  console.log(num);
   
   let response = {
       "text": `Enter new task`
