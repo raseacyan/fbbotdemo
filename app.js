@@ -262,7 +262,7 @@ function addTask(sender_psid){
   let response = {
       "text": `Enter new task`
     };
-    add = true;
+    addNewTask = true;
     callSend(sender_psid, response); 
 }
 
