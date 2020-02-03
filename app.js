@@ -292,12 +292,12 @@ function notifyDelete(sender_psid){
 function getNumTasks(){
   itemsRef.once("value", function(snapshot) {
             
-           console.log("getNumTasks", snapshot.key().lenght); 
+  console.log(snapshot.val());
             
 
            
 
-          }); 
+  }); 
 }
 
 function addTask(sender_psid){
