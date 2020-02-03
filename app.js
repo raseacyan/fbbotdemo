@@ -298,6 +298,8 @@ function getNumTasks(){
 function addTask(sender_psid){
   let response;
   let numTasks = getNumTasks();
+
+  console.log("numTasks", numTasks);
   
   if (numTasks > 9){
     response = {
