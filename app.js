@@ -290,8 +290,14 @@ function notifyDelete(sender_psid){
 
 
 function getNumTasks(){
-  itemsRef.once("value", function(snapshot) {        
-   return snapshot.length;
+  itemsRef.once("value", function(snapshot) {
+            
+            
+            return snapshot.size;
+
+           
+
+          }); 
 }
 
 function addTask(sender_psid){
