@@ -228,6 +228,9 @@ function handlePostback(sender_psid, received_postback) {
       }else if(payload === "add-task"){
           addTask(sender_psid);
           console.log("new task flag 3 ",addNewTask);
+      }else if(payload === "cancel" ){
+        response = { "text": "Your action has been cancelled" }
+        callSend(sender_psid, response);
       } 
   }else if(n => 0){
     let taskId = payload.slice(7);
@@ -496,6 +499,11 @@ function setupPersistentMenu(res){
                   "type":"postback",
                   "title":"Add New Task",
                   "payload":"add-task"
+                },
+                {
+                  "type":"postback",
+                  "title":"Cancel",
+                  "payload":"cancel"
                 }
           ]
       },
