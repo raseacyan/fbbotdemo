@@ -270,25 +270,25 @@ function addTask(sender_psid){
 
 function saveTask(sender_psid, received_message){
   add = false;
-      let item = {"details":received_message.text};           
-      let newItemRef = itemsRef.push(item);          
-      let itemId = newItemRef.key;
-      response = { "text": `Great! You have added new task` }
-      callSend(sender_psid, response);
+  let item = {"details":received_message.text};           
+  let newItemRef = itemsRef.push(item);          
+  let itemId = newItemRef.key;
+  response = { "text": `Great! You have added new task` }
+  callSend(sender_psid, response);
 }
 
 function unknownCommand(sender_psid){
-    let response1 = {"text": "I do not quite understand your command"};
-    let response2 = {"text": "To view tasks, type 'view'"};
-    let response3 = {"text": "To add new task, type 'new'"};   
-    let response4 = {"text": "If you forget who you are, type 'who am i'"};
-      callSend(sender_psid, response1).then(()=>{
-        return callSend(sender_psid, response2).then(()=>{
-          return callSend(sender_psid, response3).then(()=>{
-            return callSend(sender_psid, response4);
-          });
+  let response1 = {"text": "I do not quite understand your command"};
+  let response2 = {"text": "To view tasks, type 'view'"};
+  let response3 = {"text": "To add new task, type 'new'"};   
+  let response4 = {"text": "If you forget who you are, type 'who am i'"};
+    callSend(sender_psid, response1).then(()=>{
+      return callSend(sender_psid, response2).then(()=>{
+        return callSend(sender_psid, response3).then(()=>{
+          return callSend(sender_psid, response4);
         });
-    });  
+      });
+  });  
 }
 
 
