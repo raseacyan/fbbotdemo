@@ -295,24 +295,27 @@ function addTask(sender_psid){
   let response;
   let numTasks
 
-  itemsRef.once("value", function(snapshot) {            
-      numTasks = Object.keys(snapshot.val()).length);
-      console.log(numTasks);
+  itemsRef.once("value", function(snapshot){            
+      numTasks = Object.keys(snapshot.val()).length;
+
+      if (numTasks > 9){
+        response = {
+          "text": `You already have 10/10 task. Complete them first`
+        };
+        addNewTask = false; 
+        callSend(sender_psid, response);  
+      }else{
+        response = {
+          "text": `Enter new task`
+        };
+        addNewTask = true;    
+        callSend(sender_psid, response);  
+      }
+
+
   });
   
-  if (numTasks > 9){
-    response = {
-      "text": `You already have 10/10 task. Complete them first`
-    };
-    addNewTask = false; 
-    callSend(sender_psid, response);  
-  }else{
-    response = {
-      "text": `Enter new task`
-    };
-    addNewTask = true;    
-    callSend(sender_psid, response);  
-  }
+  
   
    
 }
