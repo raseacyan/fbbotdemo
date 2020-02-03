@@ -137,36 +137,12 @@ Function to Handle when user send text message
 function handleMessage(sender_psid, received_message) {
   //let message;
   let response;
-  console.log("new task flag 1",addNewTask);
+  
 
-  if(received_message.text){
-    console.log("new task flag 2 ",addNewTask);
-    if(addNewTask){
-      saveTask(sender_psid, received_message);
-    } else {
-      switch(received_message.text) {
-        case "hello":
-        case "hi":
-            greetUser(sender_psid);
-          break;
-        case "who am i":
-            whoami(sender_psid);
-          break;
-        case "new":
-            addTask(sender_psid);
-            console.log("new task flag 4 ",addNewTask);
-          break;
-        case "view":
-            viewTasks(sender_psid);
-          break;
-        case "attachment":
-          response = {"text": `You sent the message: "${received_message.text}". Now send me an attachment!`};
-          callSend(sender_psid, response);
-          break;
-        default:
-            unknownCommand(sender_psid);
-        }
-    }
+  if(received_message.text && addNewTask){
+    console.log("new task flag 1",addNewTask);
+    saveTask(sender_psid, received_message);
+     
   } else if(received_message.attachments){
     let attachment_url = received_message.attachments[0].payload.url;
     response = {
@@ -195,7 +171,31 @@ function handleMessage(sender_psid, received_message) {
       }
     }
     callSend(sender_psid, response);
-  }
+  } else {
+      switch(received_message.text) {
+        case "hello":
+        case "hi":
+            greetUser(sender_psid);
+          break;
+        case "who am i":
+            whoami(sender_psid);
+          break;
+        case "new":
+            addTask(sender_psid);
+            console.log("new task flag 4 ",addNewTask);
+          break;
+        case "view":
+            viewTasks(sender_psid);
+          break;
+        case "attachment":
+          response = {"text": `You sent the message: "${received_message.text}". Now send me an attachment!`};
+          callSend(sender_psid, response);
+          break;
+        default:
+            unknownCommand(sender_psid);
+        }
+    }
+
 }
 
 /*********************************************
