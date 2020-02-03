@@ -261,7 +261,7 @@ function viewTasks(sender_psid){
 function addTask(sender_psid){
   let response = {
       "text": `Enter new task`
-    }
+    };
     add = true;
     callSend(sender_psid, response); 
 }
