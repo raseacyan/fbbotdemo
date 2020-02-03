@@ -454,27 +454,15 @@ function setupPersistentMenu(res){
             "composer_input_disabled":false,
             "call_to_actions":[
                 {
-                  "title":"Info",
-                  "type":"nested",
-                  "call_to_actions":[
-                      {
-                        "title":"Help",
-                        "type":"postback",
-                        "payload":"HELP_PAYLOAD"
-                      },
-                      {
-                        "title":"Contact Me",
-                        "type":"postback",
-                        "payload":"CONTACT_INFO_PAYLOAD"
-                      }
-                  ]
+                  "type":"postback",
+                  "title":"View My Tasks",
+                  "payload":"view-tasks"
                 },
                 {
-                  "type":"web_url",
-                  "title":"Visit website ",
-                  "url":"http://www.google.com",
-                  "webview_height_ratio":"full"
-              }
+                  "type":"postback",
+                  "title":"Add New Task",
+                  "payload":"add-task"
+                }
           ]
       },
       {
