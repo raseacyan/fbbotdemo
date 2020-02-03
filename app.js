@@ -327,7 +327,7 @@ function addTask(sender_psid){
 function saveTask(sender_psid, received_message){
   addNewTask = false;
   let item = {"details":received_message.text};           
-  let newItemRef = itemsRef.push(item);          
+  let newItemRef = itemsRef.sender_psid.push(item);          
   let itemId = newItemRef.key;
   let response = { "text": `Great! You have added new task` }
   callSend(sender_psid, response);
