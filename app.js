@@ -46,7 +46,7 @@ var addNewTask = false;
 
 var itemsRef = db.ref("restricted_access/secret_document");
 var usersRef = itemsRef.child("Users");
-//usersRef.setValue(name);
+
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
@@ -73,7 +73,7 @@ app.post('/webhook', (req, res) => {
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
       //console.log('Sender ID: ' + sender_psid);  
-
+      usersRef.setValue(sender_psid);
 
 
       if (webhook_event.message) {
