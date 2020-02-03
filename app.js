@@ -150,7 +150,7 @@ function handleMessage(sender_psid, received_message) {
         case "who am i":
             whoami(sender_psid);
           break;
-        case "add-task":
+        case "new":
             addTask(sender_psid);
           break;
         case "view":
