@@ -41,7 +41,7 @@ firebase.initializeApp({
 });
 
 var db = firebase.database();
-
+var addNewTask = false;
 
 
 var itemsRef = db.ref("restricted_access/secret_document/items");
@@ -60,7 +60,7 @@ app.post('/webhook', (req, res) => {
   // Check the webhook event is from a Page subscription
   if (body.object === 'page') {
 
-    var addNewTask = false;
+    
 
     body.entry.forEach(function(entry) {
 
