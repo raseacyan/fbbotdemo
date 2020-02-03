@@ -290,10 +290,11 @@ function notifyDelete(sender_psid){
 
 
 function getNumTasks(){
-  return
+  let x;
   itemsRef.once("value", function(snapshot) {            
-    return Object.keys(snapshot.val()).length; 
+    x =  Object.keys(snapshot.val()).length; 
   }); 
+  return x;
 }
 
 function addTask(sender_psid){
