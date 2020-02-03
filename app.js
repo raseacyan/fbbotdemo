@@ -292,8 +292,8 @@ function notifyDelete(sender_psid){
 function getNumTasks(){
   itemsRef.once("value", function(snapshot) {
             
-           console.log("getNumTasks", snapshot); 
-            return snapshot.size;
+           console.log("getNumTasks", snapshot.val()); 
+            
 
            
 
@@ -301,8 +301,8 @@ function getNumTasks(){
 }
 
 function addTask(sender_psid){
-  let numTasks = getNumTasks();
-  console.log(numTasks);
+  getNumTasks();
+  
   let response = {
       "text": `Enter new task`
     };
