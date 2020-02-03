@@ -138,11 +138,9 @@ function handleMessage(sender_psid, received_message) {
   //let message;
   let response;
   
-  console.log("new task flag 1",addNewTask);
-  if(received_message.text && addNewTask){
-    
-    saveTask(sender_psid, received_message);
-     
+  
+  if(received_message.text && addNewTask){    
+    saveTask(sender_psid, received_message);     
   } else if(received_message.attachments){
     let attachment_url = received_message.attachments[0].payload.url;
     response = {
@@ -172,7 +170,8 @@ function handleMessage(sender_psid, received_message) {
     }
     callSend(sender_psid, response);
   } else {
-      switch(received_message.text) {
+      let user_message = received_message.text.toLowerCase();
+      switch(user_message) {
         case "hello":
         case "hi":
             greetUser(sender_psid);
@@ -180,6 +179,7 @@ function handleMessage(sender_psid, received_message) {
         case "who am i":
             whoami(sender_psid);
           break;
+        case "add":
         case "new":
             addTask(sender_psid);            
           break;
