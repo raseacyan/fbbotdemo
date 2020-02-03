@@ -73,7 +73,7 @@ app.post('/webhook', (req, res) => {
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
       //console.log('Sender ID: ' + sender_psid);  
-      usersRef.setValue(sender_psid);
+      
 
 
       if (webhook_event.message) {
