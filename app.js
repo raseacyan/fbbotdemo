@@ -250,7 +250,7 @@ function viewTasks(sender_psid){
                 //obj.details = data.val().details;
                 obj.title = data.val().details;
                 //obj.subtitle = data.val().details;
-                obj.image_url= "https://i.imgur.com/OvMZBs9.jpg";
+                obj.image_url= "https://store-images.s-microsoft.com/image/apps.49795.13510798887304077.4ce9da47-503d-4e6e-9fb3-2e78a99788db.b6188938-8471-4170-83b8-7fc4d9d8af6a?mode=scale&q=90&h=270&w=270&background=%230078D7";
                 obj.buttons = [{"type":"postback", "title":"DELETE", "payload":"delete:"+data.key}];
                 arr.push(obj);
                 //console.log(arr);
