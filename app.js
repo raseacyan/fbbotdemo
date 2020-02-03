@@ -42,7 +42,7 @@ firebase.initializeApp({
 
 var db = firebase.database();
 
-let addNewTask = false;
+
 
 var itemsRef = db.ref("restricted_access/secret_document/items");
 
@@ -54,7 +54,7 @@ app.post('/webhook', (req, res) => {
 
   // Parse the request body from the POST
   let body = req.body;
-
+  let addNewTask = false;
   
 
   // Check the webhook event is from a Page subscription
@@ -68,7 +68,7 @@ app.post('/webhook', (req, res) => {
 
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
-      console.log('Sender ID: ' + sender_psid);  
+      //console.log('Sender ID: ' + sender_psid);  
 
       if (webhook_event.message) {
         handleMessage(sender_psid, webhook_event.message);        
@@ -119,7 +119,7 @@ app.get('/webhook', (req, res) => {
     // Check the mode and token sent are correct
     if (mode === 'subscribe' && token === VERIFY_TOKEN) {      
       // Respond with 200 OK and challenge token from the request
-      console.log('WEBHOOK_VERIFIED');
+      //console.log('WEBHOOK_VERIFIED');
       res.status(200).send(challenge);    
     } else {
       // Responds with '403 Forbidden' if verify tokens do not match
@@ -245,7 +245,7 @@ function viewTasks(sender_psid){
                 obj.image_url= "https://i.imgur.com/OvMZBs9.jpg";
                 obj.buttons = [{"type":"postback", "title":"DELETE", "payload":"delete:"+data.key}];
                 arr.push(obj);
-                console.log(arr);
+                //console.log(arr);
             });           
 
             response = {
