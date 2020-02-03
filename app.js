@@ -154,7 +154,7 @@ function handleMessage(sender_psid, received_message) {
             addTask(sender_psid);
           break;
         case "view":
-            addTask(sender_psid);
+            viewTasks(sender_psid);
           break;
         case "attachment":
           response = {"text": `You sent the message: "${received_message.text}". Now send me an attachment!`};
