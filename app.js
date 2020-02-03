@@ -267,7 +267,7 @@ function addTask(sender_psid){
 }
 
 function saveTask(sender_psid, received_message){
-  add = false;
+  addNewTask = false;
   let item = {"details":received_message.text};           
   let newItemRef = itemsRef.push(item);          
   let itemId = newItemRef.key;
