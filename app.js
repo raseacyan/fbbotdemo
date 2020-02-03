@@ -294,8 +294,9 @@ function getNumTasks(){
 
   itemsRef.once("value", function(snapshot) {            
       snapshot.forEach(function(data) {
-                console.log('y');
-                x++;
+                
+                x = x+1;
+                console.log('y:', x);
             }); 
   }); 
   console.log('x:', x);
