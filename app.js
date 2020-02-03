@@ -154,6 +154,7 @@ function handleMessage(sender_psid, received_message) {
           break;
         case "new":
             addTask(sender_psid);
+            console.log("new task flag 4 ",addNewTask);
           break;
         case "view":
             viewTasks(sender_psid);
@@ -227,6 +228,7 @@ function handlePostback(sender_psid, received_postback) {
         viewTasks(sender_psid);
       }else if(payload === "add-task"){
           addTask(sender_psid);
+          console.log("new task flag 3 ",addNewTask);
       } 
   }else if(n => 0){
     let taskId = payload.slice(7);
@@ -287,7 +289,9 @@ function addTask(sender_psid){
       "text": `Enter new task`
     };
     addNewTask = true;
+    
     callSend(sender_psid, response); 
+    
 }
 
 function saveTask(sender_psid, received_message){
