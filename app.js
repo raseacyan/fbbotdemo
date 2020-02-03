@@ -72,7 +72,7 @@ app.post('/webhook', (req, res) => {
 
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
-      //console.log('Sender ID: ' + sender_psid);  
+     console.log('Sender ID: ' + sender_psid);  
       
 
 
@@ -270,8 +270,8 @@ function viewTasks(sender_psid){
 
             if(arr.length > 0){
               for(let i=0; i < arr.length; i++){
-              tasks.push(arr[i]);
-            } 
+                tasks.push(arr[i]);
+              } 
             }else{
               response = {
                 "text": `You do not have any task.`
@@ -312,16 +312,12 @@ function deleteTask(sender_psid, taskId){
   notifyDelete(sender_psid);
 }
 
-
 function notifyDelete(sender_psid){
   let response = {
       "text": `Task has been deleted`
     };    
     callSend(sender_psid, response);
 }
-
-
-
 
 function addTask(sender_psid){
   let response;
@@ -355,8 +351,6 @@ function addTask(sender_psid){
         callSend(sender_psid, response);  
       }
   });
-
-
 }
 
 function saveTask(sender_psid, received_message){
