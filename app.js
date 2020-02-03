@@ -44,7 +44,7 @@ var db = firebase.database();
 var addNewTask = false;
 
 
-var itemsRef; 
+var itemsRef = db.ref("restricted_access/secret_document/items");
 
 // Sets server port and logs message on success
 app.listen(process.env.PORT || 1337, () => console.log('webhook is listening'));
@@ -72,7 +72,7 @@ app.post('/webhook', (req, res) => {
       let sender_psid = webhook_event.sender.id;
       //console.log('Sender ID: ' + sender_psid);  
 
-      itemsRef = db.ref("restricted_access/secret_document/items/"+sender_psid);
+
 
       if (webhook_event.message) {
         handleMessage(sender_psid, webhook_event.message);        
@@ -329,7 +329,7 @@ function addTask(sender_psid){
 function saveTask(sender_psid, received_message){
   addNewTask = false;
   let item = {"details":received_message.text};           
-  let newItemRef = itemsRef.push(item);          
+  let newItemRef = itemsRef.child(sender_psid).push(item);          
   let itemId = newItemRef.key;
   let response = { "text": `Great! You have added new task` }
   callSend(sender_psid, response);
