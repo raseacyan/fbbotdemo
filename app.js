@@ -202,28 +202,33 @@ function handlePostback(sender_psid, received_postback) {
   let response;
   // Get the payload for the postback
   let payload = received_postback.payload;
-
-  // Set the response based on the postback payload
-  if (payload === 'yes-attachment') {
-    response = { "text": "Thanks!" }
-    callSend(sender_psid, response);
-  } else if (payload === 'no-attachment') {
-    response = { "text": "Oops, try sending another image." }
-    callSend(sender_psid, response);
-  } else if(payload === "get_started" ){
-    whoami(sender_psid);
-  } 
-  else if(payload === "yes-i-am" ){
-    greetUser(sender_psid);   
+  let n = payload.indexOf("delete:");
+  if(n < 0){
+      if (payload === 'yes-attachment') {
+        response = { "text": "Thanks!" }
+        callSend(sender_psid, response);
+      } else if (payload === 'no-attachment') {
+        response = { "text": "Oops, try sending another image." }
+        callSend(sender_psid, response);
+      } else if(payload === "get_started" ){
+        whoami(sender_psid);
+      } 
+      else if(payload === "yes-i-am" ){
+        greetUser(sender_psid);   
+      }
+      else if(payload === "no-i-am-not" ){
+        response = { "text": "Oops, You are not you" }
+        callSend(sender_psid, response);
+      }else if(payload === "view-tasks"){
+        viewTasks(sender_psid);
+      }else if(payload === "add-task"){
+          addTask(sender_psid);
+      } 
+  }else if(n => 0){
+    let taskId = payload.slice(7);
+    deleteTask(sender_psid, taskId);
   }
-  else if(payload === "no-i-am-not" ){
-    response = { "text": "Oops, You are not you" }
-    callSend(sender_psid, response);
-  }else if(payload === "view-tasks"){
-    viewTasks(sender_psid);
-  }else if(payload === "add-task"){
-      addTask(sender_psid);
-  } 
+ 
 }
 
 function viewTasks(sender_psid){
@@ -237,7 +242,7 @@ function viewTasks(sender_psid){
                 obj.title = data.val().details;
                 //obj.subtitle = data.val().details;
                 obj.image_url= "https://i.imgur.com/OvMZBs9.jpg";
-                obj.buttons = [{"type":"postback", "title":"DELETE", "payload":"delete"+data.key}];
+                obj.buttons = [{"type":"postback", "title":"DELETE", "payload":"delete:"+data.key}];
                 arr.push(obj);
                 console.log(arr);
             });           
@@ -256,6 +261,21 @@ function viewTasks(sender_psid){
             callSend(sender_psid, response);
 
           });
+}
+
+
+function deleteTask(sender_psid, taskId){          
+  let itemRemove = itemsRef.child(taskId);          
+  itemRemove.remove();
+  notifyDelete(sender_psid);
+}
+
+
+function notifyDelete(sender_psid){
+  let response = {
+      "text": `Task has been deleted`
+    };    
+    callSend(sender_psid, response);
 }
 
 function addTask(sender_psid){
