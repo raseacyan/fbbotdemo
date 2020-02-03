@@ -60,7 +60,7 @@ app.post('/webhook', (req, res) => {
   // Check the webhook event is from a Page subscription
   if (body.object === 'page') {
 
-    
+
 
     body.entry.forEach(function(entry) {
 
@@ -137,10 +137,10 @@ Function to Handle when user send text message
 function handleMessage(sender_psid, received_message) {
   //let message;
   let response;
-
+  console.log("new task flag 1",addNewTask);
 
   if(received_message.text){
-    console.log("new task flag",addNewTask);
+    console.log("new task flag 2 ",addNewTask);
     if(addNewTask){
       saveTask(sender_psid, received_message);
     } else {
