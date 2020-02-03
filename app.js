@@ -229,6 +229,7 @@ function handlePostback(sender_psid, received_postback) {
           addTask(sender_psid);
           console.log("new task flag 3 ",addNewTask);
       }else if(payload === "cancel" ){
+        addNewTask = false;
         response = { "text": "Your action has been cancelled" }
         callSend(sender_psid, response);
       } 
