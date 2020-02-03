@@ -294,6 +294,7 @@ function getNumTasks(){
   itemsRef.once("value", function(snapshot) {            
     x =  Object.keys(snapshot.val()).length; 
   }); 
+  console.log('x:', x);
   return x;
 }
 
