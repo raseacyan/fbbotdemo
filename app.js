@@ -137,8 +137,6 @@ function handleMessage(sender_psid, received_message) {
   let response;
 
   if(received_message.text){
-   
-
     if(addNewTask){
       saveTask(sender_psid, received_message);
     } else {
@@ -261,7 +259,7 @@ function viewTasks(sender_psid){
 }
 
 function addTask(sender_psid){
-  response = {
+  let response = {
       "text": `Enter new task`
     }
     add = true;
