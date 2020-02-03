@@ -45,7 +45,7 @@ var addNewTask = false;
 
 
 //var itemsRef = db.ref("restricted_access/secret_document");
-var usersRef = db.ref("restricted_access/secret_document");
+var usersRef = db.ref("restricted_access/secret_document/users");
 
 
 // Sets server port and logs message on success
