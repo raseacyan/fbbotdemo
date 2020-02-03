@@ -181,8 +181,7 @@ function handleMessage(sender_psid, received_message) {
             whoami(sender_psid);
           break;
         case "new":
-            addTask(sender_psid);
-            console.log("new task flag 4 ",addNewTask);
+            addTask(sender_psid);            
           break;
         case "view":
             viewTasks(sender_psid);
@@ -251,7 +250,12 @@ function viewTasks(sender_psid){
                 obj.buttons = [{"type":"postback", "title":"DELETE", "payload":"delete:"+data.key}];
                 arr.push(obj);
                 //console.log(arr);
-            });           
+            }); 
+
+            let tasks  = [];
+            for(let i=0; i < arr.length; i++){
+              tasks.push(arr[i]);
+            }          
 
             response = {
               "attachment": {
@@ -259,7 +263,7 @@ function viewTasks(sender_psid){
                 "payload": {
                   "template_type": "generic",
                   "image_aspect_ratio": "square",
-                  "elements": arr
+                  "elements": tasks
                 }
               }
             }
@@ -284,7 +288,15 @@ function notifyDelete(sender_psid){
     callSend(sender_psid, response);
 }
 
+
+function getNumTasks(){
+  itemsRef.once("value", function(snapshot) {        
+   return snapshot.length;
+}
+
 function addTask(sender_psid){
+  let numTasks = getNumTasks();
+  console.log(numTasks);
   let response = {
       "text": `Enter new task`
     };
