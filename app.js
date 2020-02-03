@@ -267,9 +267,18 @@ function viewTasks(sender_psid){
             }); 
 
             let tasks  = [];
-            for(let i=0; i < arr.length; i++){
+
+            if(arr.length > 0){
+              for(let i=0; i < arr.length; i++){
               tasks.push(arr[i]);
-            }          
+            } 
+            }else{
+              response = {
+                "text": `You do not have any task.`
+              };       
+              callSend(sender_psid, response);  
+            }
+                     
 
             response = {
               "attachment": {
@@ -284,9 +293,6 @@ function viewTasks(sender_psid){
 
             callSend(sender_psid, response);
           });
-
-
-
       }else{
         response = {
           "text": `You do not have any task.`
