@@ -137,6 +137,7 @@ function handleMessage(sender_psid, received_message) {
   let response;
 
   if(received_message.text){
+    console.log(addNewTask);
     if(addNewTask){
       saveTask(sender_psid, received_message);
     } else {
