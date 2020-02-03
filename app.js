@@ -292,7 +292,7 @@ function notifyDelete(sender_psid){
 function getNumTasks(){
   itemsRef.once("value", function(snapshot) {
             
-  return Object.keys(snapshot).length;
+  console.log(Object.keys(snapshot.val()).length);
             
 
            
