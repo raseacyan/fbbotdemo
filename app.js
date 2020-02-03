@@ -72,7 +72,9 @@ app.post('/webhook', (req, res) => {
 
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
-     console.log('Sender ID: ' + sender_psid);  
+      let sender_profile_pic = webhook_event.sender.profile_pic;
+       console.log('Sender ID: ' + sender_psid); 
+       console.log('Sender PIC: ' + sender_profile_pic); 
       
 
 
