@@ -76,9 +76,8 @@ app.post('/webhook', (req, res) => {
       let sender_first_name = webhook_event.sender.first_name;
       let sender_last_name = webhook_event.sender.last_name;
        console.log('Sender ID: ' + sender_psid); 
-       console.log('Sender PIC: ' + sender_profile_pic); 
-       console.log('Sender fist name: ' + sender_first_name);
-       console.log('Sender last name: ' + sender_last_name);
+      
+       console.log('Sender:', webhook_event.sender);
       
 
 
