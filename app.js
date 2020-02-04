@@ -72,12 +72,7 @@ app.post('/webhook', (req, res) => {
 
       // Get the sender PSID
       let sender_psid = webhook_event.sender.id;
-      let sender_profile_pic = webhook_event.sender.profile_pic;
-      let sender_first_name = webhook_event.sender.first_name;
-      let sender_last_name = webhook_event.sender.last_name;
-       console.log('Sender ID: ' + sender_psid); 
       
-       console.log('Sender:', webhook_event.sender);
       
 
 
@@ -417,7 +412,7 @@ async function callSend(sender_psid, response){
 function getUserProfile(sender_psid) {
   return new Promise(resolve => {
     request({
-      "uri": "https://graph.facebook.com/"+sender_psid+"?fields=first_name,last_name,profile_pic&access_token=EAAGmSf4ySjMBAAyASiRcn34RFrZCHT2GqQFHYrYpJZCCAEZAWi4tyxYo2bnUZCtGtBnrG9PFDPTRiLevXfEs1Lqms2iZCwU6iW813hs2pgu9IgShfdqaAZAarKkMc0jDyB02LjS3tlP5evHgM1uGGwMEzkQXHsVkA7W4X8Uf9cNQZDZD",
+      "uri": "https://graph.facebook.com/"+sender_psid+"?fields=first_name,last_name,profile_pic&access_token=EAAGmSf4ySjMBACxNfZAdxEzIPZCT6lyZAyXZCKHmM2DnRO87hH3s5rRaofImCtfTLp3198fMrntu0K5kZBa0WGbcYx4RC4CUNRRku1U3GFvsBO5ZCllHGA6FaWMeL5ZALdph3omIDBanwAW27JTM5zFYslhbqVerzPn7lglQ4vO5r26P4gvIzBb",
       "method": "GET"
       }, (err, res, body) => {
         if (!err) { 
