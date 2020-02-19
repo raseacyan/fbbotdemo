@@ -341,11 +341,7 @@ function addTask(sender_psid){
     }
   });
   
-  response = {
-              "text": `Enter new task`
-            };
-            addNewTask = true;    
-            callSend(sender_psid, response);  
+  
   
 }
 
