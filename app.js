@@ -254,9 +254,7 @@ function handlePostback(sender_psid, received_postback) {
 function viewTasks(sender_psid){
   let response;
   
-    itemsRef.once("value", function(snapshot){     
-
-        
+    itemsRef.once("value", function(snapshot){           
         
                    
             var arr = [];
@@ -329,9 +327,9 @@ function addTask(sender_psid){
   itemsRef.once("value", function(snapshot){     
         
     numTasks = Object.keys(snapshot.val()).length;
-    if (numTasks > 9){
+    if (numTasks > 5){
       response = {
-        "text": `You already have 10/10 task. Complete them first`
+        "text": `You already have 6/6 task. Complete them first`
       };
       addNewTask = false; 
       callSend(sender_psid, response);  
