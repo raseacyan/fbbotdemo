@@ -48,10 +48,10 @@ var addNewTask = false;
 
 
 
-//var usersRef = db.ref("restricted_access/secret_document/users");
 
-//var itemsRef = db.ref("restricted_access/secret_document");
-var usersRef = db.ref("restricted_access/secret_document/users");
+
+var itemsRef = db.ref("restricted_access/secret_document");
+//var usersRef = db.ref("restricted_access/secret_document/users");
 
 
 
