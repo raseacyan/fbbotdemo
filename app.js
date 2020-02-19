@@ -50,7 +50,7 @@ var addNewTask = false;
 
 
 
-var itemsRef = db.ref("restricted_access/secret_document");
+var itemsRef = db.ref("restricted_access/secret_document/items");
 //var usersRef = db.ref("restricted_access/secret_document/users");
 
 
