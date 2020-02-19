@@ -324,22 +324,44 @@ function addTask(sender_psid){
   let response;
   let numTasks;
 
-  itemsRef.once("value", function(snapshot){ 
-    numTasks = Object.keys(snapshot.val()).length;
-    if (numTasks > 5){
-      response = {
-        "text": `You already have 6/6 task. Complete them first`
-      };
-      addNewTask = false; 
-      callSend(sender_psid, response);  
-    }else{
-      response = {
-        "text": `Enter new task`
-      };
-      addNewTask = true;    
-      callSend(sender_psid, response);  
-    }
+
+  let documentRef = db.ref("restricted_access/secret_document/items");
+
+  documentRef.once("value", function(snapshot){
+      if (snapshot.hasChild('items')) {
+
+          itemsRef.once("value", function(snapshot){ 
+          numTasks = Object.keys(snapshot.val()).length;
+          if (numTasks > 5){
+            response = {
+              "text": `You already have 6/6 task. Complete them first`
+            };
+            addNewTask = false; 
+            callSend(sender_psid, response);  
+          }else{
+            response = {
+              "text": `Enter new task`
+            };
+            addNewTask = true;    
+            callSend(sender_psid, response);  
+          }
+        });
+
+
+
+      }else{
+          response = {
+            "text": `Enter new task`
+          };
+          addNewTask = true;    
+        callSend(sender_psid, response);  
+      }
+
   });
+
+  
+
+  
   
   
   
