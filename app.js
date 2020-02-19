@@ -322,6 +322,24 @@ function notifyDelete(sender_psid){
 
 function addTask(sender_psid){
   let response;
+  let numTasks;
+
+  itemsRef.once("value", function(snapshot){ 
+    numTasks = Object.keys(snapshot.val()).length;
+    if (numTasks > 6){
+      response = {
+        "text": `You already have 6/6 task. Complete them first`
+      };
+      addNewTask = false; 
+      callSend(sender_psid, response);  
+    }else{
+      response = {
+        "text": `Enter new task`
+      };
+      addNewTask = true;    
+      callSend(sender_psid, response);  
+    }
+  });
   
   response = {
               "text": `Enter new task`
