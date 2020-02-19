@@ -354,7 +354,7 @@ function addTask(sender_psid){
             addNewTask = true;    
             callSend(sender_psid, response);  
           }
-  }  
+  }); 
 
   
 }
