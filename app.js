@@ -326,7 +326,7 @@ function addTask(sender_psid){
 
   itemsRef.once("value", function(snapshot){ 
     numTasks = Object.keys(snapshot.val()).length;
-    if (numTasks > 6){
+    if (numTasks > 5){
       response = {
         "text": `You already have 6/6 task. Complete them first`
       };
