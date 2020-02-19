@@ -308,7 +308,7 @@ function viewTasks(sender_psid){
 
 
 function deleteTask(sender_psid, taskId){          
-  let itemRemove = usersRef.child(sender_psid).child(taskId);          
+  let itemRemove = itemsRef.child(taskId);          
   itemRemove.remove();
   notifyDelete(sender_psid);
 }
@@ -324,11 +324,10 @@ function addTask(sender_psid){
   let response;
   let numTasks
 
-  usersRef.once("value", function(snapshot){     
+  itemsRef.once("value", function(snapshot){     
 
-      if (snapshot.hasChild(sender_psid)) {
-        let user_ref = usersRef.child(sender_psid);
-        user_ref.once("value",function(snapshot){
+      
+        
             numTasks = Object.keys(snapshot.val()).length;
             if (numTasks > 9){
               response = {
@@ -343,23 +342,16 @@ function addTask(sender_psid){
               addNewTask = true;    
               callSend(sender_psid, response);  
             }
-        });
-      }else{
-        response = {
-          "text": `Enter new task`
-        };
-        addNewTask = true;    
-        callSend(sender_psid, response);  
-      }
+        
+      
   });
 }
 
 function saveTask(sender_psid, received_message){
-  addNewTask = false;
-  let userRef = usersRef.child(sender_psid);
+  addNewTask = false;  
   let task = {"details":received_message.text};           
-  let newTaskRef = userRef.push(task);          
-  let taskId = newTaskRef.key;
+  let newItemRef = itemsRef.push(task);          
+  let taskId = newItemRef.key;
   let response = { "text": `Great! You have added new task` }
   callSend(sender_psid, response);
 }
