@@ -317,7 +317,9 @@ function notifyDelete(sender_psid){
   let response = {
       "text": `Task has been deleted`
     };    
-    callSend(sender_psid, response);
+    callSend(sender_psid, response).then(()=>{
+      viewTasks(sender_psid);
+    });
 }
 
 function addTask(sender_psid){
@@ -325,24 +327,21 @@ function addTask(sender_psid){
   let numTasks
 
   itemsRef.once("value", function(snapshot){     
-
-      
         
-            numTasks = Object.keys(snapshot.val()).length;
-            if (numTasks > 9){
-              response = {
-                "text": `You already have 10/10 task. Complete them first`
-              };
-              addNewTask = false; 
-              callSend(sender_psid, response);  
-            }else{
-              response = {
-                "text": `Enter new task`
-              };
-              addNewTask = true;    
-              callSend(sender_psid, response);  
-            }
-        
+    numTasks = Object.keys(snapshot.val()).length;
+    if (numTasks > 9){
+      response = {
+        "text": `You already have 10/10 task. Complete them first`
+      };
+      addNewTask = false; 
+      callSend(sender_psid, response);  
+    }else{
+      response = {
+        "text": `Enter new task`
+      };
+      addNewTask = true;    
+      callSend(sender_psid, response);  
+    }        
       
   });
 }
