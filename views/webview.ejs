@@ -10,7 +10,33 @@
 	<h1>hello from webview</h1>
 	
 	
-	
+	<script>
+
+		console.log(PAGE_ACCESS_TOKEN);
+		function postBotMessage(cb){
+                var textMessage = {
+                  "recipient":{
+                    "id":senderID
+                  },
+                  "message":{
+                    "text": "Thank you. You data has been save"
+                  }
+                  }
+
+                  var xhr = new XMLHttpRequest();
+                  xhr.open("POST", 'https://graph.facebook.com/v5.0/me/messages?access_token=EAAKGyWXj6KABAEWctoGADzQgZBCK mpqfhcxPYqvasGphAK6CYjuvc42ZCnHZBCjC6tqKGZAotsjKadLyRK0iX6qxI8kBDwPyTInwV17umvWBZC1mUa5m0ofKpZA8h2rrUA1qql9BI8F10N9BmaBDeqVW0U5yZB8vVizzwTaHsf7qMFsOqlSWuXdI8l7CRbJkh8ZD', true);
+                  xhr.setRequestHeader('Content-Type', 'application/json');
+                  xhr.send(JSON.stringify(textMessage));
+
+                  //cb();
+
+                  
+              }
+
+              function windowClose(){
+                window.location.assign('https://www.messenger.com/closeWindow/?image_url=https://i1.wp.com/www.watts-innovating.com/wp-content/uploads/2018/04/thankyou.jpg?fit=2160%2C2160&ssl=1&display_text=Thankyou');
+              }
+	</script>
 
   </body>
 
