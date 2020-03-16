@@ -8,11 +8,17 @@
   <body>
   
 	<h1>hello from webview</h1>
+	<button id="close"></button>
 	
 	
 	<script>
-		const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
-		console.log(PAGE_ACCESS_TOKEN);
+		const PAGE_ACCESS_TOKEN = 'EAAGmSf4ySjMBACxNfZAdxEzIPZCT6lyZAyXZCKHmM2DnRO87hH3s5rRaofImCtfTLp3198fMrntu0K5kZBa0WGbcYx4RC4CUNRRku1U3GFvsBO5ZCllHGA6FaWMeL5ZALdph3omIDBanwAW27JTM5zFYslhbqVerzPn7lglQ4vO5r26P4gvIzBb';
+		senderID = '<%= sender_id %>';
+
+
+		const btn = document.getElementById("close");
+		btn.addEventListener("click", alert('clicked'));
+		
 		function postBotMessage(cb){
                 var textMessage = {
                   "recipient":{
@@ -24,7 +30,7 @@
                   }
 
                   var xhr = new XMLHttpRequest();
-                  xhr.open("POST", 'https://graph.facebook.com/v5.0/me/messages?access_token=EAAKGyWXj6KABAEWctoGADzQgZBCK mpqfhcxPYqvasGphAK6CYjuvc42ZCnHZBCjC6tqKGZAotsjKadLyRK0iX6qxI8kBDwPyTInwV17umvWBZC1mUa5m0ofKpZA8h2rrUA1qql9BI8F10N9BmaBDeqVW0U5yZB8vVizzwTaHsf7qMFsOqlSWuXdI8l7CRbJkh8ZD', true);
+                  xhr.open("POST", 'https://graph.facebook.com/v5.0/me/messages?access_token='+PAGE_ACCESS_TOKEN, true);
                   xhr.setRequestHeader('Content-Type', 'application/json');
                   xhr.send(JSON.stringify(textMessage));
 

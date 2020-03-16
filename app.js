@@ -105,7 +105,7 @@ app.post('/webhook', (req, res) => {
 });
 
 //webview test
-app.get('/webview',function(req,res){
+app.get('/webview/:sender_id',function(req,res){
     res.render('webview.ejs')
 });
 
@@ -277,7 +277,7 @@ function webviewTest(sender_psid){
               {
                 "type": "web_url",
                 "title": "webview",
-                "url":"https://ayethatarbot.herokuapp.com/webview"                
+                "url":"https://ayethatarbot.herokuapp.com/webview/"+sender_psid              
               },
               
             ],
