@@ -300,19 +300,35 @@ function viewTasks(sender_psid){
                    
             var arr = [];
             snapshot.forEach(function(data) {
-                var obj = {}
+                //var obj = {}
                 //obj._id  = data.key ;
-                //obj.details = data.val().details;
-                obj.title = data.val().details;
+                //obj.details = data.val().details;                
                 //obj.subtitle = data.val().details;
+
+                /*
+                obj.title = data.val().details;
                 obj.image_url= "https://store-images.s-microsoft.com/image/apps.49795.13510798887304077.4ce9da47-503d-4e6e-9fb3-2e78a99788db.b6188938-8471-4170-83b8-7fc4d9d8af6a?mode=scale&q=90&h=270&w=270&background=%230078D7";
                 obj.buttons = [{"type":"postback", "title":"DELETE", "payload":"delete:"+data.key}];
+                */
+                var obj = {
+                  "title": 'sangpi',
+     
+                  "buttons": [
+                    {
+                      "type": "postback",
+                      "title": "Select",
+                      "payload": 'sang',
+                    }
+                  ]
+                }
+
                 arr.push(obj);
                 
             }); 
 
             console.log("ARRAY", arr);
 
+            /*
             let tasks  = [];
 
             if(arr.length > 0){
@@ -326,7 +342,7 @@ function viewTasks(sender_psid){
               callSend(sender_psid, response);  
             }
 
-            console.log("TASK", tasks);
+            console.log("TASK", tasks);*/
                      
 
             response = {
@@ -335,7 +351,7 @@ function viewTasks(sender_psid){
                 "payload": {
                   "template_type": "generic",
                   "image_aspect_ratio": "square",
-                  "elements": tasks
+                  "elements": arr
                 }
               }
             }
