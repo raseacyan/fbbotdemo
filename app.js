@@ -263,8 +263,7 @@ function webviewTest(sender_psid){
         "payload": {
           "template_type": "generic",
           "elements": [{
-            "title": "Is this you?",
-            "subtitle": "Click to open webview.",            
+            "title": "Click to open webview?",                       
             "buttons": [
               {
                 "type": "web_url",
