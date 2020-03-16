@@ -28,7 +28,11 @@ const
   express = require('express'),
   body_parser = require('body-parser'),
   firebase = require("firebase-admin"),
+  ejs = require("ejs"),
   app = express().use(body_parser.json()); // creates express http server
+
+app.set('view engine', 'ejs');
+app.set('views', __dirname+'/views');
 
 //firebase initialize
 firebase.initializeApp({
@@ -98,6 +102,11 @@ app.post('/webhook', (req, res) => {
     res.sendStatus(404);
   }
 
+});
+
+//webview test
+app.get('/webview',function(req,res){
+    res.render('webview.ejs')
 });
 
 //Set up Get Started Button. To run one time
@@ -268,8 +277,7 @@ function webviewTest(sender_psid){
               {
                 "type": "web_url",
                 "title": "webview",
-                "url":"https://www.google.com"
-                
+                "url":"https://ayethatarbot.herokuapp.com/webview"                
               },
               
             ],
