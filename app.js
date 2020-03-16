@@ -258,30 +258,25 @@ function handlePostback(sender_psid, received_postback) {
 function webviewTest(sender_psid){
   let response;
   response = {
-      "message":{
-          "attachment":{
-            "type":"template",
-            "payload":{
-              "template_type":"generic",
-              "elements":[
-                {
-                "title":"Click to open webview",
-                "buttons":[
-                  {
-                    "type":"web_url",
-                    "url":"https://www.google.com",
-                    "title":"webview",
-                    "webview_height_ratio": "full",
-                  },               
-                  
-                ]
-  
+      "attachment": {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [{
+            "title": "Is this you?",
+            "subtitle": "Click to open webview.",            
+            "buttons": [
+              {
+                "type": "web_url",
+                "title": "webview",
+                "url":"https://www.google.com"
+                
               },
+              
             ],
-            
-            }
-          }  
+          }]
         }
+      }
     }
   callSendAPI(sender_psid, response);
 
