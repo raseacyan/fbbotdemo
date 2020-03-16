@@ -258,7 +258,30 @@ function handlePostback(sender_psid, received_postback) {
 function webviewTest(sender_psid){
   let response;
   response = {
-      "text":"call webview!"
+      "message":{
+          "attachment":{
+            "type":"template",
+            "payload":{
+              "template_type":"generic",
+              "elements":[
+                {
+                "title":"Click to open webview",
+                "buttons":[
+                  {
+                    "type":"web_url",
+                    "url":"https://www.google.com",
+                    "title":"webview",
+                    "webview_height_ratio": "full",
+                  },               
+                  
+                ]
+  
+              },
+            ],
+            
+            }
+          }  
+        }
     }
   callSendAPI(sender_psid, response);
 
