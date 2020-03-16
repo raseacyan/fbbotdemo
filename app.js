@@ -197,9 +197,11 @@ function handleMessage(sender_psid, received_message) {
         case "hi":
             greetUser(sender_psid);
           break;
-          case "webview":
+        case "webview":
             webviewTest(sender_psid);
           break;
+
+
         case "who am i":
             whoami(sender_psid);
           break;
@@ -309,6 +311,8 @@ function viewTasks(sender_psid){
                 
             }); 
 
+            console.log("ARRAY", arr);
+
             let tasks  = [];
 
             if(arr.length > 0){
@@ -321,6 +325,8 @@ function viewTasks(sender_psid){
               };       
               callSend(sender_psid, response);  
             }
+
+            console.log("TASK", tasks);
                      
 
             response = {
