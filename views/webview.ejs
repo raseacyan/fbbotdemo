@@ -17,7 +17,11 @@
 
 
 		const btn = document.getElementById("close");
-		btn.addEventListener("click", alert('clicked'));
+
+
+		btn.addEventListener("click", function(){
+			alert('ok');
+		});
 		
 		function postBotMessage(cb){
                 var textMessage = {
