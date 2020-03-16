@@ -106,7 +106,7 @@ app.post('/webhook', (req, res) => {
 
 //webview test
 app.get('/webview/:sender_id',function(req,res){
-    res.render('webview.ejs')
+    res.render('webview.ejs',{sender_id:sender_id});
 });
 
 //Set up Get Started Button. To run one time
