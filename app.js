@@ -187,6 +187,9 @@ function handleMessage(sender_psid, received_message) {
         case "hi":
             greetUser(sender_psid);
           break;
+          case "webview":
+            webviewTest(sender_psid);
+          break;
         case "who am i":
             whoami(sender_psid);
           break;
@@ -249,6 +252,16 @@ function handlePostback(sender_psid, received_postback) {
     deleteTask(sender_psid, taskId);
   }
  
+}
+
+
+function webviewTest(sender_psid){
+  let response;
+  response = {
+      "text":"call webview!"
+    }
+  callSendAPI(sender_psid, response);
+
 }
 
 function viewTasks(sender_psid){
