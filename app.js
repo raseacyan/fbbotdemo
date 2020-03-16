@@ -106,6 +106,7 @@ app.post('/webhook', (req, res) => {
 
 //webview test
 app.get('/webview/:sender_id',function(req,res){
+    const sender_id = req.params.sender_id;
     res.render('webview.ejs',{sender_id:sender_id});
 });
 
