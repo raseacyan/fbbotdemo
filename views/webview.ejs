@@ -20,10 +20,11 @@
 
 
 		btn.addEventListener("click", function(){
-			alert('ok');
+			postBotMessage();
+			windowClose();
 		});
 		
-		function postBotMessage(cb){
+		function postBotMessage(){
                 var textMessage = {
                   "recipient":{
                     "id":senderID
@@ -38,7 +39,7 @@
                   xhr.setRequestHeader('Content-Type', 'application/json');
                   xhr.send(JSON.stringify(textMessage));
 
-                  //cb();
+                  
 
                   
               }
