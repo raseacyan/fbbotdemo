@@ -83,7 +83,7 @@ function price() {
     firebase.auth().signInWithEmailAndPassword('mmcarwash@gmail.com', '123456').then(function(success) {
     console.log(success);
       var db = firebase.firestore();
-      var senderID = '<%= id %>';
+      var senderID = '<%= sender_id %>';
         db.collection('booking').add({
             
            
