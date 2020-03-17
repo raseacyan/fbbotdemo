@@ -107,7 +107,7 @@ app.post('/webhook', (req, res) => {
 //webview test
 app.get('/webview/:sender_id',function(req,res){
     const sender_id = req.params.sender_id;
-    res.render('webview.ejs',{sender_id:sender_id});
+    res.render('webview2.ejs',{sender_id:sender_id});
 });
 
 //Set up Get Started Button. To run one time
@@ -200,6 +200,7 @@ function handleMessage(sender_psid, received_message) {
         case "webview":
             webviewTest(sender_psid);
           break;
+        
 
 
         case "who am i":
@@ -292,15 +293,13 @@ function webviewTest(sender_psid){
 
 }
 
-
-var arr = [];
 function viewTasks(sender_psid){
   let response;
   
     itemsRef.once("value", function(snapshot){           
         
                    
-            
+            var arr = [];
             snapshot.forEach(function(data) {
                 //var obj = {}
                 //obj._id  = data.key ;
