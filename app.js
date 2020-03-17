@@ -281,7 +281,7 @@ function webviewTest(sender_psid){
               {
                 "type": "web_url",
                 "title": "webview",
-                "url":"https://ayethatarbot.herokuapp.com/webview/"+sender_psid              
+                "url":"https://ayethatarbot.herokuapp.com/webview2/"+sender_psid              
               },
               
             ],
