@@ -85,16 +85,7 @@ function price() {
       var db = firebase.firestore();
       var senderID = '<%= id %>';
         db.collection('booking').add({
-            name: '<%= name%>',
-            package: '<%= package %>',
-            wtype: '<%=wtype %>',
-            phone: document.getElementById('phone').value,
-            town: document.getElementById('town').value,
-            address: document.getElementById('address_info').value,
-            carsize:document.querySelector('input[name="carsize"]:checked').value,
-            price:document.getElementById("price").innerHTML,
-            date:document.getElementById('date-input').value,
-            time:document.getElementById('time-input').value,
+            
            
         }).then(success => {
            
