@@ -110,6 +110,11 @@ app.get('/webview2/:sender_id',function(req,res){
     res.render('webview2.ejs',{sender_id:sender_id});
 });
 
+app.get('/webview/:sender_id',function(req,res){
+    const sender_id = req.params.sender_id;
+    res.render('webview2.ejs',{sender_id:sender_id});
+});
+
 //Set up Get Started Button. To run one time
 app.get('/setgsbutton',function(req,res){
     setupGetStartedButton(res);    
@@ -280,8 +285,13 @@ function webviewTest(sender_psid){
             "buttons": [
               {
                 "type": "web_url",
-                "title": "webview",
+                "title": "webview 2",
                 "url":"https://ayethatarbot.herokuapp.com/webview2/"+sender_psid              
+              },
+              {
+                "type": "web_url",
+                "title": "webview",
+                "url":"https://ayethatarbot.herokuapp.com/webview/"+sender_psid              
               },
               
             ],
@@ -301,35 +311,23 @@ function viewTasks(sender_psid){
                    
             var arr = [];
             snapshot.forEach(function(data) {
-                //var obj = {}
-                //obj._id  = data.key ;
-                //obj.details = data.val().details;                
-                //obj.subtitle = data.val().details;
+                var obj = {}
+                obj._id  = data.key ;
+                obj.details = data.val().details;                
+                obj.subtitle = data.val().details;
 
-                /*
+               
                 obj.title = data.val().details;
                 obj.image_url= "https://store-images.s-microsoft.com/image/apps.49795.13510798887304077.4ce9da47-503d-4e6e-9fb3-2e78a99788db.b6188938-8471-4170-83b8-7fc4d9d8af6a?mode=scale&q=90&h=270&w=270&background=%230078D7";
                 obj.buttons = [{"type":"postback", "title":"DELETE", "payload":"delete:"+data.key}];
-                */
-                var obj = {
-                  "title": 'sangpi',
-     
-                  "buttons": [
-                    {
-                      "type": "postback",
-                      "title": "Select",
-                      "payload": 'sang',
-                    }
-                  ]
-                }
+                
+                
 
                 arr.push(obj);
                 
             }); 
 
-            console.log("ARRAY", arr);
-
-            /*
+            
             let tasks  = [];
 
             if(arr.length > 0){
@@ -343,7 +341,7 @@ function viewTasks(sender_psid){
               callSend(sender_psid, response);  
             }
 
-            console.log("TASK", tasks);*/
+           
                      
 
             response = {
