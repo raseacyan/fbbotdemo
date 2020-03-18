@@ -112,7 +112,7 @@ app.get('/webview2/:sender_id',function(req,res){
 
 app.get('/webview/:sender_id',function(req,res){
     const sender_id = req.params.sender_id;
-    res.render('webview2.ejs',{sender_id:sender_id});
+    res.render('webview.ejs',{sender_id:sender_id});
 });
 
 //Set up Get Started Button. To run one time
